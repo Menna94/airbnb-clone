@@ -1,13 +1,13 @@
-import React from 'react'
-import Cities from './components/governments/Cities'
-import Places from './components/LiveEnywhere/Places'
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import './components/Gift/Gift'
+import Home from './screens/Home';
+
+
 function App() {
-    return (
-        <main className='py-3'>
-            <Cities />
-            <Places />
-        </main>
-    )
+  return (
+    <Home/>
+  );
 }
 
-export default App
+export default App;
