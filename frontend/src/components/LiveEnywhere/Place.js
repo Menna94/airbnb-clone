@@ -12,7 +12,6 @@ class Place extends Component {
                     {this.props.name}
                 </h5>
             </Col>
-
         )
     }
 }
