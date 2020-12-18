@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 
 const placeReviewsSchema = mongoose.Schema({
     name: { type:String , required:true}, //////////////////??????? user?!
@@ -114,4 +114,4 @@ const placeSchema = mongoose.Schema({
 
 const Place = mongoose.model('Place',placeSchema);
 
-export default Place;
+module.exports = Place;
