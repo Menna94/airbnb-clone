@@ -1,9 +1,15 @@
 import express from 'express'
 import dotenv from 'dotenv'
 const app = express();
+import placeRoutes from './routes/placeRoutes.js'
+import DBConnection from './config/db.js'
 
 app.use(express.json());
 dotenv.config();
+
+DBConnection();
+
+app.use('/places',placeRoutes);
 
 
 
