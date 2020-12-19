@@ -387,10 +387,52 @@ const updatePlaceAminities = async (req,res,next)=>{
     res.status(200).json({ place: updatedAminities.toObject({ getters: true }) });
 }
 
+
+
+
+
+//------------------------> UPDATE <------------------------// 
+//Photos, short description, title
+//------------------------> UPDATE <------------------------// 
+//-> PUT/place/ update
+//-> access-> private
+const updatePlaceDetails = async (req,res,next)=>{
+    const {
+        placePhotos,
+        placeDetails,
+        placeDescription,
+    } = req.body;
+    const placeID = req.params.pid;
+    
+    let updatedDetails;
+    //make changes
+    try{
+        updatedDetils = await Place.findById(placeID)
+    }catch(err){
+        const error = new airbnbError('Something went wrong, Couldn\'t Update Aminities!', 500)
+        return next(error);
+    }
+    updatedDetails.placePhotos = placePhotos;
+    updatedDetails.placeDetails = placeDetails;
+    updatedDetails.placeDescription = placeDescription;
+
+    //save changes to DB
+    try{
+        await updatedDetils.save();
+    }catch(err){
+        const error = new airbnbError('Something went wrong, Couldn\'t save changes!', 500)
+        return next(error);
+    }
+
+    res.status(200).json({ place: updatedDetils.toObject({ getters: true }) });
+
+}
+
+
 export{
    createPlace,
    getPlaces,
    getPlacesByUID,
-   updatePlaceAminities
+   updatePlaceAminities 
 }
 
