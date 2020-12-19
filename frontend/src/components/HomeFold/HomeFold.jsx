@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./HomeFold.scss";
-import { ReactComponent as Logo } from "../../images/logo.svg";
-import { ReactComponent as UserIcon } from "../../images/header-user-icon.svg";
-import { ReactComponent as ListIcon } from "../../images/icon-list.svg";
-import { Dropdown } from "react-bootstrap";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './HomeFold.scss'
+import { ReactComponent as Logo } from '../../images/logo.svg'
+import { ReactComponent as UserIcon } from '../../images/header-user-icon.svg'
+import { ReactComponent as ListIcon } from '../../images/icon-list.svg'
+import { Dropdown } from 'react-bootstrap'
 
 const HomeFold = () => {
     return (
@@ -38,11 +38,19 @@ const HomeFold = () => {
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu align="right">
-                                                <Dropdown.Item href="#/action-1">Sign Up</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">Login</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">
+                                                    Sign Up
+                                                </Dropdown.Item>
+                                                <Dropdown.Item href="#/action-2">
+                                                    Login
+                                                </Dropdown.Item>
                                                 <Dropdown.Divider />
-                                                <Dropdown.Item href="#/action-3">Host your Home</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-4">Help</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-3">
+                                                    Host your Home
+                                                </Dropdown.Item>
+                                                <Dropdown.Item href="#/action-4">
+                                                    Help
+                                                </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
@@ -69,7 +77,7 @@ const HomeFold = () => {
                 </div>
             </div>
         </>
-    );
-};
+    )
+}
 
-export default HomeFold;
+export default HomeFold
