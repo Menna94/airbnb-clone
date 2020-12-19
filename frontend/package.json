@@ -7,7 +7,6 @@
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
         "bootstrap": "^4.5.3",
-        "eslint-plugin-prettier": "^3.3.0",
         "node-sass": "^4.14.1",
         "prettier": "^2.2.1",
         "react": "^17.0.1",
@@ -23,8 +22,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "lint": "eslint --fix .",
-        "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+        "lint": "eslint --fix ."
     },
     "eslintConfig": {
         "extends": [
@@ -43,9 +41,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "eslint-config-prettier": "^7.1.0",
-        "eslint-plugin-simple-import-sort": "^7.0.0"
     }
 }
