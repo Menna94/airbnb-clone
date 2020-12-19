@@ -15,7 +15,7 @@ const Experience = () => {
           <div className='row justify-content-center'>
             <div className={`col-md-4 col-sm-6 col-8 mb-3 ${style.pd}`}>
               <div className={`card ${style.card}`}>
-                <img src="images/6.jpg" className={`card-img-top ${style['card-img-top']} card-img-top`}></img>
+                <img src="imgs/6.jpg" className={`card-img-top ${style['card-img-top']} card-img-top`}></img>
                 <div className={`card-body ${style[`card-body`]}`}>
                   <h5>Online Experiences</h5>
                   <p className="card-text">Travel the world with out leaving home.</p>
@@ -24,7 +24,7 @@ const Experience = () => {
             </div>
             <div className={`col-md-4 col-sm-6 col-8 mb-3 ${style.pd}`}>
               <div className={`card ${style.card}`}>
-                <img src="images/5.jpg" className={`card-img-top ${style['card-img-top']} card-img-top`}></img>
+                <img src="imgs/5.jpg" className={`card-img-top ${style['card-img-top']} card-img-top`}></img>
                 <div className={`card-body ${style[`card-body`]}`}>
                   <h5>Experiences</h5>
                   <p className="card-text">Things to do where ever you are.</p>
@@ -33,7 +33,7 @@ const Experience = () => {
             </div>
             <div className={`col-md-4 col-sm-6 col-8 mb-3 ${style.pd}`}>
               <div className={`card ${style.card}`}>
-                <img src="images/7.jpg" className={`card-img-top ${style['card-img-top']} card-img-top`}></img>
+                <img src="imgs/7.jpg" className={`card-img-top ${style['card-img-top']} card-img-top`}></img>
                 <div className={`card-body ${style[`card-body`]}`}>
                   <h5>Adventures</h5>
                   <p className="card-text">Multi-day trips with every thing included.</p>
