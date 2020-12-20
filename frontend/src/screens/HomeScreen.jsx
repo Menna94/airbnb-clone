@@ -1,8 +1,23 @@
 import React from 'react'
+import Experience from '../components/experiences/Experience'
+import HomeFold from '../components/HomeFold/HomeFold'
+import Footer from '../components/Footer/Footer'
+import Future from '../components/Future/Future'
 import Gift from '../components/Gift/Gift'
+import Cities from '../components/Cities/Cities'
+import Places from '../components/Live anywhere/Places'
 
-export default function HomeScreen() {
+const HomeScreen = () => {
     return (
-      <Gift/>
+        <>
+            <HomeFold />
+            <Cities />
+            <Places />
+            <Experience />
+            <Gift />
+            <Future />
+            <Footer />
+        </>
     )
 }
+export default HomeScreen
