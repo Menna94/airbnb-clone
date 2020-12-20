@@ -41,13 +41,15 @@ class Cities extends Component {
     }
     render() {
         return (
-            <Container>
-                <Row>
-                    {this.props.cities.map((c, id) => (
-                        <City key={id} id={c.id} name={c.name} duration={c.duration} />
-                    ))}
-                </Row>
-            </Container>
+            <div className="py-5">
+                <Container>
+                    <Row>
+                        {this.props.cities.map((c, id) => (
+                            <City key={id} id={c.id} name={c.name} duration={c.duration} />
+                        ))}
+                    </Row>
+                </Container>
+            </div>
         )
     }
 }
