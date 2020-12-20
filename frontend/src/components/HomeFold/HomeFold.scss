@@ -1,6 +1,6 @@
 .h-fold {
     min-height: 100vh;
-    background: url("../../images/fold-bg.webp") no-repeat;
+    background: url('../../images/fold-bg.webp') no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,11 @@
     align-items: center;
     &__logo {
         > a {
+            display: inline-block;
             color: #ffffff;
+            &:hover {
+                color: #ffffff;
+            }
         }
     }
 
@@ -69,14 +73,17 @@
             text-decoration: none;
             color: #ffffff;
             border-radius: 22px;
+            transition: all 0.5s ease;
             &:hover {
                 background: rgba(255, 255, 255, 0.15);
+                color: #ffffff;
+                text-decoration: none;
             }
         }
     }
 
     &__actions {
-        button {
+        button.actions-btn {
             background: #fff;
             color: #222222;
             display: flex;
@@ -86,6 +93,7 @@
             padding: 5px 5px 5px 12px;
             border-radius: 21px;
             transition: all 0.5s ease;
+            border: none;
             span {
                 &.icon-user {
                     color: #717171;
@@ -115,10 +123,46 @@
             &:hover,
             &:focus,
             &:active {
-                background: #fff;
+                background: #fff !important;
                 color: #222222;
                 opacity: 0.5;
-                box-shadow: none;
+                box-shadow: none !important;
+            }
+        }
+
+        .show {
+            button.actions-btn {
+                background: #fff;
+            }
+        }
+
+        .dropdown-menu {
+            border-radius: 8px;
+            min-width: 200px;
+        }
+        &-menu {
+            button,
+            a {
+                display: block;
+                color: #525151;
+                font-size: 16px;
+                width: 100%;
+                padding: 4px 20px;
+                text-align: left;
+                line-height: 1.6;
+                text-decoration: none;
+                font-weight: 400;
+                height: auto;
+                transition: all 0.5s ease;
+
+                &:hover {
+                    text-decoration: none;
+                    color: #ff385c;
+                }
+
+                &.signUp {
+                    font-weight: 500;
+                }
             }
         }
     }
