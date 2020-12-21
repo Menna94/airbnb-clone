@@ -1,9 +1,11 @@
 import React from 'react'
+import { MultyStepForm } from '../components/StepForm/MultyStepForm/MultyStepForm';
 
-export default function HostScreen() {
+const HostScreen = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <MultyStepForm/>
+        </>
     )
 }
+export default HostScreen
