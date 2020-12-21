@@ -96,4 +96,4 @@ module.exports = {
     deletePlace
 };
 
-
+export { createPlace, getPlaces, getPlacesByUID, updatePlaceAminities };

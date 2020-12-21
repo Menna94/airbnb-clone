@@ -13,14 +13,16 @@ class Places extends Component {
     }
     render() {
         return (
-            <Container>
-                <h1>Live anywhere</h1>
-                <Row>
-                    {this.props.places.map((p, id) => (
-                        <Place key={id} id={p.id} name={p.name} />
-                    ))}
-                </Row>
-            </Container>
+            <div className="mb-5">
+                <Container>
+                    <h1>Live anywhere</h1>
+                    <Row>
+                        {this.props.places.map((p, id) => (
+                            <Place key={id} id={p.id} name={p.name} />
+                        ))}
+                    </Row>
+                </Container>
+            </div>
         )
     }
 }
