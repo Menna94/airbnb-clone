@@ -96,3 +96,5 @@ module.exports = {
 };
 
 export { createPlace, getPlaces, getPlacesByUID, updatePlaceAminities };
+
+//added comment
