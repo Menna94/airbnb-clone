@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './HomeFold.scss'
 import { ReactComponent as Logo } from '../../images/logo.svg'
 import { ReactComponent as UserIcon } from '../../images/header-user-icon.svg'
 import { ReactComponent as ListIcon } from '../../images/icon-list.svg'
-import { Dropdown } from 'react-bootstrap'
+import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
+import LoginModal from './LoginModal'
+import SignUpModal from './SignUpModal'
 
 const HomeFold = () => {
+    const [showLogin, setShowLogin] = useState(false)
+    const handleCloseLogin = () => setShowLogin(false)
+    const handleShowLogin = () => setShowLogin(true)
+
+    const [showSignUp, setShowSignUp] = useState(false)
+    const handleCloseSignUp = () => setShowSignUp(false)
+    const handleShowSignUp = () => setShowSignUp(true)
+
     return (
         <>
             <div className="h-fold">
@@ -27,30 +37,37 @@ const HomeFold = () => {
                                     </div>
                                     <div className="h-header__actions">
                                         <Dropdown>
-                                            <Dropdown.Toggle menuAlign="right" id="dropdown-basic">
+                                            <Dropdown.Toggle
+                                                menuAlign="right"
+                                                id="dropdown-basic"
+                                                className="actions-btn">
                                                 <span className="icon-list">
                                                     <ListIcon />
                                                 </span>
-
                                                 <span className="icon-user">
                                                     <UserIcon />
                                                 </span>
                                             </Dropdown.Toggle>
 
-                                            <Dropdown.Menu align="right">
-                                                <Dropdown.Item href="#/action-1">
+                                            <Dropdown.Menu
+                                                align="right"
+                                                className="h-header__actions-menu">
+                                                <Button
+                                                    variant="link"
+                                                    onClick={handleShowSignUp}
+                                                    className="signUp">
                                                     Sign Up
-                                                </Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">
+                                                </Button>
+                                                <Button
+                                                    variant="link"
+                                                    onClick={handleShowLogin}
+                                                    className="login">
                                                     Login
-                                                </Dropdown.Item>
+                                                </Button>
                                                 <Dropdown.Divider />
-                                                <Dropdown.Item href="#/action-3">
-                                                    Host your Home
-                                                </Dropdown.Item>
-                                                <Dropdown.Item href="#/action-4">
-                                                    Help
-                                                </Dropdown.Item>
+                                                <Link to="/host/homes">Host your Home</Link>
+                                                <Link to="/host/dashboard">Dashboard</Link>
+                                                <Link to="/help">Help</Link>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
@@ -72,9 +89,13 @@ const HomeFold = () => {
                             <span>Go</span>
                             <span>Near</span>
                         </h1>
+
                         <button className="btn btn-explore">Explore nearby stays</button>
                     </div>
                 </div>
+
+                <LoginModal show={showLogin} onHide={handleCloseLogin} />
+                <SignUpModal show={showSignUp} onHide={handleCloseSignUp} />
             </div>
         </>
     )
