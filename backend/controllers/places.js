@@ -88,7 +88,6 @@ const deletePlace = asyncHandler(async (req, res, next) => {
     })
 })
 
-
 module.exports = {
     getPlace,
     createPlace,
