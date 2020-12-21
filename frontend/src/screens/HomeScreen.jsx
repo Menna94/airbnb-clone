@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { MultyStepForm } from '../components/StepForm/MultyStepForm/MultyStepForm';
 import Experience from '../components/experiences/Experience'
 import HomeFold from '../components/HomeFold/HomeFold'
 import Footer from '../components/Footer/Footer'
@@ -17,6 +19,7 @@ const HomeScreen = () => {
             <Gift />
             <Future />
             <Footer />
+            <MultyStepForm/>
         </>
     )
 }
