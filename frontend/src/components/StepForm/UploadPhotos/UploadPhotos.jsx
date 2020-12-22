@@ -60,6 +60,7 @@ export const UploadPhotos = ({formData , setForm ,navigation}) => {
         })
     }
 
+    
     const thumbs = files.map(file => (
         <div style={thumb} key={file.name}>
             <div style={thumbInner}>
