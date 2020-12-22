@@ -8,6 +8,8 @@ import {Price} from '../Price/Price';
 import { UploadPhotos } from '../UploadPhotos/UploadPhotos';
 import { PropertyType } from './../ProbertyType/PropertyType';
 import { Location } from './../location/Location';
+import { Guests } from './../Guests/Guests';
+import { Amenities } from '../Amenities/Amenities';
 
 const defaultData={
     address:'',
@@ -24,19 +26,21 @@ const defaultData={
     bedrooms:'',
     beds:'',
     bathrooms:'',
+    //amenities page
+    wifi:'',
     //uploadphotos page
     uploadphoto:'',
-    
+
    
 }
-
-
 const steps = [
     {id:'address'},
     {id:'type'},
     {id:'description'},
     {id:'price'},
     {id:'location'},
+    {id:'guests'},
+    //{id:'amenities'},
     {id:'uploadphoto'},
 ]
 
@@ -61,10 +65,12 @@ export const MultyStepForm = () => {
             return <Price {...props}/> 
         case "location":
             return <Location {...props}/> 
+        case "guests" :
+                return <Guests {...props}/>
         case "uploadphoto" :
             return <UploadPhotos {...props}/>
-          
-        
+        case "amenities" :
+            return <Amenities {...props}/>
          
     }
     console.log(step);

@@ -12,7 +12,6 @@ export const PropertyType = ({formData , setForm ,navigation}) => {
                 <form >
                     <div className="form-group">
                             <select class="form-select" class="form-control" type="text"  class="price" id="type" aria-describedby="type"   placeholder="Proberty address" name="type" value={type}  onChange={setForm}>
-                                <option selected>select one</option>
                                 <option value="apartment">Apartment</option>
                                 <option value="room">Room</option>
                                 <option value="house">House</option>
