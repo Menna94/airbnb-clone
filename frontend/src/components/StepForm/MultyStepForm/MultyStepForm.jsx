@@ -29,30 +29,34 @@ const defaultData={
     //amenities page
     wifi:'',
     //uploadphotos page
-    uploadphoto:'',
+    isAccept: false,
 
    
 }
 const steps = [
+    
+    {id:'amenities'},
     {id:'address'},
+    {id:'uploadphoto'},
     {id:'type'},
     {id:'description'},
     {id:'price'},
     {id:'location'},
     {id:'guests'},
-    //{id:'amenities'},
-    {id:'uploadphoto'},
+    
+    
 ]
 
 export const MultyStepForm = () => {
-    const [formData , setForm]= useForm(defaultData);
+    const [formData , setForm ]= useForm(defaultData);
     const {step , navigation}=  useStep({
         steps ,
         initialStep:0
     })
     console.log(1, formData);
+    
 
-    const props={formData ,setForm , navigation}
+    const props={formData ,setForm , navigation }
 
     switch(step.id){
         case "address" :
