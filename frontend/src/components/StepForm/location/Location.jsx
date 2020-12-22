@@ -1,9 +1,11 @@
 import React from 'react'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export const Location = ({formData , setForm ,navigation}) => {
     const {country,city,street}= formData;
     return (
         <div class="container">
+            <ProgressBar now={50}/>
             <div class="row description">
                 <div class="col-md-6 offset-md-3">
                     <h4 className="price_p">Where’s your place located?</h4>

@@ -3,6 +3,8 @@ import './UploadPhotos.css';
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
 
 const thumbsContainer = {
     display: 'flex',
@@ -47,14 +49,47 @@ export const UploadPhotos = ({formData , setForm ,navigation}) => {
             })));
         }
     });
+
     function handleSubmit(){
-        console.log(files);
+        if(files.length !== 5){
+            return alert('please upload 5 photos');
+        }
+        const aminities = {
+            wifi: formData.wifi,
+            tv: formData.tv,
+            ac: formData.ac,
+            shampoo: formData.shampoo,
+            iron: formData.iron,
+            fireplace: formData.fireplace,
+            heat: formData.heat
+        }
+        const location = {
+            country: formData.country,
+            city: formData.city,
+            street: formData.street
+        }
+
         const myForm = new FormData();
-        myForm.append('files', files);
-        myForm.append('name', 'mohamed');
-        myForm.append('name2', 'ahmed');
-        console.log(myForm.file1);
-        console.log(myForm.name);
+        myForm.append('file1', files[0]);
+        myForm.append('file2', files[1]);
+        myForm.append('file3', files[2]);
+        myForm.append('file4', files[3]);
+        myForm.append('file5', files[4]);
+
+        myForm.append('title', formData.title);
+        myForm.append('description', formData.description);
+        myForm.append('address', formData.address);
+        myForm.append('price', formData.price);
+        myForm.append('propertyType', formData.type);
+        
+        myForm.append('guests', formData.guests);
+        myForm.append('beds', formData.beds);
+        myForm.append('bathrooms', formData.bathrooms);
+        myForm.append('bedrooms', formData.bedrooms);
+
+        myForm.append('aminities', JSON.stringify(aminities));
+        myForm.append('location', JSON.stringify(location));
+        
         axios.post('http://localhost:8000/help', myForm).then((res)=>{
             console.log(res);
         })
@@ -79,9 +114,10 @@ export const UploadPhotos = ({formData , setForm ,navigation}) => {
 
     return (
         <section className="container">
+            <ProgressBar now={100} />
             <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
+                <p>Upload 5 photos for your place</p>
             </div>
             <aside style={thumbsContainer}>
                 {thumbs}
@@ -89,8 +125,4 @@ export const UploadPhotos = ({formData , setForm ,navigation}) => {
             <button onClick={handleSubmit}>Submit </button>
         </section>
     );
-
-
-   
-   
 }

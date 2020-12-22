@@ -1,10 +1,12 @@
 import React from 'react'
 import './Price.css'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export const Price = ({formData , setForm ,navigation}) => {
     const {price ,title}= formData;
     return (
         <div class="container">
+            <ProgressBar now={87.5}/>
           <div class="row description">
             <div class="col-md-6 offset-md-3">
                 <h4 className="price_p">Price your space</h4>

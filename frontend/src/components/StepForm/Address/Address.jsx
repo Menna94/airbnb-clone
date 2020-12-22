@@ -1,10 +1,13 @@
 import React from 'react'
 import './Address.css'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export const Address = ({formData , setForm ,navigation}) => {
     const {address}= formData;
     console.log(address)
     return (
+        <>
+            <ProgressBar now={12.5}/>
         <div class="container">
           <div class="row description">
             <div class="col-md-6 offset-md-3">
@@ -21,6 +24,6 @@ export const Address = ({formData , setForm ,navigation}) => {
             </div>
         </div>
     </div>
-
+        </>
     )
 }

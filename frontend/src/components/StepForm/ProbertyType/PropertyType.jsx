@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export const PropertyType = ({formData , setForm ,navigation}) => {
     const {type}= formData;
     console.log(type)
     return (
         <div class="container">
+            <ProgressBar now={25}/>
             <div class="row description">
             <div class="col-md-6 offset-md-3">
                 <h4 className="price_p">What kind of place are you listing?</h4>

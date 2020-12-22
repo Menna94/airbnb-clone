@@ -72,6 +72,8 @@ app.post('/help', (req, res)=>{
     console.log('heeelp');
     // console.log(req.files.files[0]);
     console.log(req.body);
+    console.log(JSON.parse(req.body.aminities));
+    console.log(JSON.parse(req.body.location).country);
     res.json({
         success: true,
         data: 'hi'
@@ -95,3 +97,4 @@ process.on('unhandledRejection', (err, promise) => {
         process.exit(1);
     });
 })
+

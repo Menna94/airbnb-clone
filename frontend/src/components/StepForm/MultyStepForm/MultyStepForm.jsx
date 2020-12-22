@@ -26,22 +26,27 @@ const defaultData = {
     bedrooms: '',
     beds: '',
     bathrooms: '',
+    guests: '',
     //amenities page
-    wifi: false,
     //uploadphotos page
-    uploadphoto: '',
-
+    wifi: false,
+    tv: false,
+    ac: false,
+    shampoo: false,
+    iron: false,
+    fireplace: false,
+    heat: false
 
 }
 const steps = [
     { id: 'address' },
     { id: 'type' },
+    { id: 'guests' },
+    { id: 'location' },
+    { id: 'amenities' },
     { id: 'description' },
     { id: 'price' },
-    { id: 'location' },
-    { id: 'guests' },
-    //{id:'amenities'},
-    { id: 'uploadphoto' },
+    { id: 'uploadphoto' }
 ]
 
 export const MultyStepForm = () => {
@@ -52,7 +57,9 @@ export const MultyStepForm = () => {
     })
     console.log(1, formData);
 
+
     const props = { formData, setForm, navigation }
+
 
     switch (step.id) {
         case "address":
