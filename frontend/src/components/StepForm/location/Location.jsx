@@ -27,8 +27,8 @@ export const Location = ({formData , setForm ,navigation}) => {
                         </div>
                     </form>
                 </div>
+            </div>
         </div>
-    </div>
     
     )
 }
