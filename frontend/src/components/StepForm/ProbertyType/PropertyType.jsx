@@ -5,8 +5,9 @@ export const PropertyType = ({formData , setForm ,navigation}) => {
     const {type}= formData;
     console.log(type)
     return (
+        <>
+        <ProgressBar now={25}/>
         <div class="container">
-            <ProgressBar now={25}/>
             <div class="row description">
             <div class="col-md-6 offset-md-3">
                 <h4 className="price_p">What kind of place are you listing?</h4>
@@ -27,5 +28,6 @@ export const PropertyType = ({formData , setForm ,navigation}) => {
             </div>
         </div>
     </div>
+    </>
     )
 }

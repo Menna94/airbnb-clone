@@ -4,8 +4,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 export const Guests = ({ formData, setForm, navigation }) => {
     const { bedrooms, beds, bathrooms, guests } = formData;
     return (
+        <>
+        <ProgressBar now={37.5}/>
         <div class="container">
-            <ProgressBar now={37.5}/>
             <div class="row description">
                 <div class="col-md-6 offset-md-3">
                     <h4 className="price_p">How many guests can your place accommodate?</h4>
@@ -35,6 +36,6 @@ export const Guests = ({ formData, setForm, navigation }) => {
                 </div>
             </div>
         </div>
-
+        </>
     )
 }
