@@ -19,7 +19,7 @@ const HomeScreen = () => {
             <Gift />
             <Future />
             <Footer />
-            <MultyStepForm/>
+            {/* <MultyStepForm/> */}
         </>
     )
 }

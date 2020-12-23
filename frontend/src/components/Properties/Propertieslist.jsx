@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Property from './Property'
+import Footer from '../Footer/Footer';
 
 
 export default class Propertieslist extends Component {
@@ -60,6 +61,7 @@ export default class Propertieslist extends Component {
                         </tbody>
                     </table>
                     </div>
+                    <Footer />
             </React.Fragment>
         )
     }
