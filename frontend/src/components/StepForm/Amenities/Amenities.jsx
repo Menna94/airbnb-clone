@@ -5,8 +5,9 @@ export const Amenities = ({ formData, setForm, navigation }) => {
     const { wifi, tv, iron, heat, shampoo, ac, fireplace } = formData;
 
     return (
+        <>
+        <ProgressBar now={62.5}/>
         <div className="container">
-            <ProgressBar now={62.5}/>
             <div className="row description">
                 <div className="col-md-6 offset-md-3">
                     <h4 className="price_p">What amenities do you offer?</h4>
@@ -57,5 +58,6 @@ export const Amenities = ({ formData, setForm, navigation }) => {
                 </div>
             </div>
         </div>
+        </>
     )
 }

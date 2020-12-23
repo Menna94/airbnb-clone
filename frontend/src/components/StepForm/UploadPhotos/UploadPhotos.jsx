@@ -11,17 +11,11 @@ const thumbsContainer = {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 16
-};
-const img = {
-    display: 'block',
-    width: 'auto',
-    height: '100%'
-};
-
-
-const thumb = {
+  };
+  
+  const thumb = {
     display: 'inline-flex',
-    borderRadius: 2,
+    borderRadius: 2 ,
     border: '1px solid #eaeaea',
     marginBottom: 8,
     marginRight: 8,
@@ -29,13 +23,19 @@ const thumb = {
     height: 100,
     padding: 4,
     boxSizing: 'border-box'
-};
-
-const thumbInner = {
+  };
+  
+  const thumbInner = {
     display: 'flex',
     minWidth: 0,
     overflow: 'hidden'
-};
+  };
+  
+  const img = {
+    display: 'block',
+    width: 'auto',
+    height: '100%'
+  };
 
 export const UploadPhotos = ({formData , setForm ,navigation}) => {
     const [files, setFiles] = useState([]);
@@ -113,16 +113,18 @@ export const UploadPhotos = ({formData , setForm ,navigation}) => {
     }, [files]);
 
     return (
-        <section className="container">
-            <ProgressBar now={100} />
-            <div {...getRootProps({ className: 'dropzone' })}>
+        <>
+        <ProgressBar now={100} />
+        <section className="container upload_section">
+            <div {...getRootProps({ className: 'dropzone' })} className="uploadInput">
                 <input {...getInputProps()} />
-                <p>Upload 5 photos for your place</p>
+                <p className="p_photos">Upload 5 photos for your place</p>
             </div>
-            <aside style={thumbsContainer}>
+            <aside style={thumbsContainer} className="photos_uploaded">
                 {thumbs}
             </aside>
-            <button onClick={handleSubmit}>Submit </button>
+            <button onClick={handleSubmit} class="btn btn_start">Submit Now</button>
         </section>
+        </>
     );
 }

@@ -7,8 +7,9 @@ export const Description = ({ formData, setForm, navigation }) => {
     console.log(description)
 
     return (
+        <>
+        <ProgressBar now={75}/>
         <div class="container">
-            <ProgressBar now={75}/>
             <div class="row description">
                 <div class="col-md-6 offset-md-3">
                     <h4>Describe your place to guests</h4>
@@ -25,5 +26,6 @@ export const Description = ({ formData, setForm, navigation }) => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
