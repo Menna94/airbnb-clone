@@ -6,6 +6,7 @@ const placeSchema = mongoose.Schema({
         required: [true, 'please specify owner'],
         ref: 'User'
     },
+    reserverations: [{startDate: Date, endDate: Date}],
     approved: {
         type: Boolean,
         default: false
