@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import './Footer.css';
+import './Footer.scss'
 
 export default function Footer() {
     return (
@@ -62,7 +62,6 @@ export default function Footer() {
                                 <p>Resource Center</p>
                                 <p>Community Center</p>
                             </Col>
-
                         </Row>
                     </Col>
                     <div className="divider d-xl-none mb-5 mt-4"></div>
@@ -83,16 +82,34 @@ export default function Footer() {
                         </Row>
                     </Col>
                 </Row>
-                <div className="divider mb-5 mt-4"></div>
+                <div className="divider mb-4 mt-4"></div>
                 <div className="copyright">
-                    <Row>
-                        <p className="copy">&copy; 2020 Airbnb, Inc. All rights reserved</p>
-                        <p className="footer-options">
-                            <span className="language mr-5"><span className="underline">English</span></span>
-                            <span className="currency mr-5">$ <span className="underline">USD</span></span>
-                            <span>social links</span>
-                        </p>
-                    </Row>
+                    <p className="copy">&copy; 2020 Airbnb, Inc. All rights reserved</p>
+                    <div className="footer-options">
+                        <span className="language mr-5">
+                            <span className="underline">English</span>
+                        </span>
+                        <span className="currency mr-5">
+                            $ <span className="underline">USD</span>
+                        </span>
+                        <ul class="social-links">
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </Container>
         </div>
