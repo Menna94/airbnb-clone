@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Col } from 'react-bootstrap'
 import './Place.css'
 
@@ -13,7 +14,9 @@ export default class Place extends Component {
             <>
                 <Col lg={3} md={6} sm={12}>
                     <div className="img-wrapper" >
-                        <img src={cityImg} alt='Houses Pictures' className='pic' />
+                        <a href={`/search/${this.props.id}`}>
+                            <img src={cityImg} alt='Houses Pictures' className='pic' />
+                        </a>
                         <span className="heart"><i className={this.props.heart}></i></span>
                     </div>
                     <span className='rate'>
