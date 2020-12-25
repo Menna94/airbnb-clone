@@ -1,5 +1,9 @@
+.book{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
 
- .card {
+.card {
     border-radius: 20px !important;
     margin-top: 20px !important;
 }
@@ -15,16 +19,17 @@
   border-radius: 10px !important;
 } 
 
-.btn_learn{
-  background-color: white !important;
-}
 .join_p{
   margin-top: 20px;
 }
 
+hr{
+    border: 1px solid  #DDDDDD !important;
+}
+
 /*-------------------media Query-------------------*/
 @media(max-width:800px){
-   .gift h2{font-size: 20px}
+   h2{font-size: 20px}
 }
 @media(min-width:500px) and(max-width:800px){
    h2{font-size: 10px}
@@ -36,20 +41,6 @@
    h3{font-size: 3px;}
 }
 
-@media (max-width: 768px) {
-  .btn_learn{
-    /* padding:2px 4px !important; */
-    font-size:80% !important;
-    line-height: 1 !important;
-    border-radius:3px !important;
-  }
-}
 
-@media (min-width: 769px) and (max-width: 992px) {
-  .btn_learn {
-    /* padding:2px 4px !important; */
-    font-size:90% !important;
-    line-height: 1 !important;
-  }
-}
+
 

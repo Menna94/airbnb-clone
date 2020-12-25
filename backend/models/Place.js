@@ -1,117 +1,91 @@
 const mongoose = require('mongoose');
 
-const placeReviewsSchema = mongoose.Schema({
-    name: { type:String , required:true}, //////////////////??????? user?!
-    rating:{ type:Number , required:true},
-    comment:{ type:String , required:true},
-},{
-    timestamps:true
-});
-
 const placeSchema = mongoose.Schema({
-    owner:{ type: String, required: true, ref: 'User' },
-    title: { type: String, required: true},
-    address: { type: String, required: true},
-    guestsNum: { type: Number, required:true},
-    propertyType:{ type: String, required: true},
-    placeType: { type: String, required: true},
-    dedicatedToGuests:{ type: Boolean, required: true},
-    bedrooms:{ type: Number, required:true},
-    beds:{ type: Number, required:true},
-    bathrooms:{ type: Number, required:true},
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        required: [true, 'please specify owner'],
+        ref: 'User'
+    },
+    reserverations: [{startDate: Date, endDate: Date}],
+    approved: {
+        type: Boolean,
+        default: false
+    },
+    title: {
+        type: String,
+        required: [true, 'title is required'],
+        minlength: [5, 'title min length is 5 characters'],
+        maxwidth: [100, 'title max length is 100 characters']
+    },
+    description: {
+        type: String,
+        required: [true, 'please add description'],
+        minlength: [5, 'description min length is 5 characters'],
+        maxwidth: [500, 'description max length is 500 characters']
+    },
+    address: {
+        type: String,
+        required: [true, 'please add address'],
+        minlength: [5, 'address min length is 5 characters'],
+        maxwidth: [100, 'address max length is 100 characters']
+    },
+    price: {
+        type: Number,
+        min: [1, 'minimum price is 1$'],
+        max: [1000000, 'maximum price is 1000000'],
+        required: [true, 'please add price']
+    },
+    propertyType: {
+        type: String,
+        required: [true, 'please add property type'],
+        enum: ['apartment', 'house', 'room']
+    },
+    guests: {
+        type: Number,
+        required: [true, 'please add max number of guests'],
+        min: [1, 'minimum guests number is 1'],
+        max: [100, 'maximum guests number is 100']
+    },
+    bedrooms: {
+        type: Number,
+        required: [true, 'please add bedrooms number '],
+        min: [1, 'minimum bedrooms number is 1'],
+        max: [100, 'maximum bedrooms number is 100']
+    },
+    beds: {
+        type: Number,
+        required: [true, 'please add beds number '],
+        min: [1, 'minimum beds number is 1'],
+        max: [100, 'maximum beds number is 100']
+    },
+    bathrooms: {
+        type: Number,
+        required: [true, 'please add bathrooms number '],
+        min: [1, 'minimum bathrooms number is 1'],
+        max: [100, 'maximum bathrooms number is 100']
+    },
     location: {
-        country: { type: String, required: true},
-        street: { type: String, required: true},
-        flatNum:Number,
-        city: { type: String, required: true},
-        postalCode: { type: Number, required: true},
+        country: {
+            required: [true, 'please add country'],
+            type: String, required: true, minlength: 3,
+            maxlength: 50
+        },
+        city: { required: [true, 'please add city'], type: String, required: true, minlength: 3, maxlength: 50 },
+        street: { required: [true, 'please add street'], type: String, required: true, minlength: 3, maxlength: 50 }
     },
-    aminities: { 
-        essentials:Boolean,
-        wifi:Boolean,
-        tv:Boolean,
-        heating:Boolean,
-        airConditioning:Boolean,
-        iron:Boolean,
-        shampoo:Boolean,
-        hairdryer:Boolean,
-        breakfast:Boolean,
-        workspace:Boolean,
-        fireplace:Boolean,
-        wardrobe:Boolean,
-        privateEntrance:Boolean,
-    },
-    safetyAminities: {
-        smokeDetector:Boolean,
-        coDetector:Boolean,
-        firstAidKit:Boolean,
-        fireExtinguisher:Boolean,
-        bedroomLock:Boolean,
-    },
-    spacesGuestCanUse: { 
-        kitchen:Boolean,
-        washingMachine:Boolean,
-        dryer:Boolean,
-        parking:Boolean,
-        gym:Boolean,
-        pool:Boolean,
-        hotTub:Boolean
-    },
-    placePhotos: { type: [String], required: true},
-    placeDetails:String,
-    placeDescription: { type: String, required: true},
-    houseRules: {
-        children:Boolean,
-        infants:Boolean,
-        pets:Boolean,
-        smokingAllowed:Boolean,
-        eventsAllowed:Boolean
-    },
-    guestsShouldKnow: {
-        stairs:Boolean,
-        noise:Boolean,
-        petsOnProperty:Boolean,
-        noParking:Boolean,
-        sharedSpaces:Boolean,
-        amenityLimits:Boolean,
-        surveillance:Boolean,
-        weapons:Boolean,
-        dangerousAnimals:Boolean,
-    },
-    historyOfRental:Boolean,
-    howOftenGuests: String,
-    noticeBeforeArrival: { type: Number, required: true},
-    checkInHours: { 
-        checkInFrom: {type:String, required: true},
-        checkInTo: {type:String, required: true}
-    },
-    guestsBookInAdvanceBy: { type: String, required: true},
-    guestsStayPeriod: { 
-        guestsStayMin:Number,
-        guestsStayMax:Number
-    },
-    calenderOfAvailability: { 
-        from: { type: Date},
-        to:{ type: Date}
-    },
-    price:{
-        base: { type: Number, required: true},
-        max: { type: Number, required: true},
-        min: { type: Number, required: true},
-    },
-    specialOffer:{type:Boolean, required:true},
-    discountOnLongStays:{
-        weekly: Number,
-        monthly: Number,
-    },
-    // placeReviews:{ placeReviewsSchema },
-    // placeRating:{ type:Number, required:true, default:0 },
-    // placeReviewsCount:{ type:Number, required:true, default:0 },
-},{
-    timestamps:true
+    aminities: {
+        wifi: { type: Boolean, default: false },
+        tv: { type: Boolean, default: false },
+        iron: { type: Boolean, default: false },
+        heat: { type: Boolean, default: false },
+        shampoo: { type: Boolean, default: false },
+        ac: { type: Boolean, default: false },
+        fireplace: { type: Boolean, default: false }
+    }
+}, {
+    timestamps: true
 })
 
-
-const Place = mongoose.model('Place',placeSchema);
+const Place = mongoose.model('Place', placeSchema);
 
 module.exports = Place;
