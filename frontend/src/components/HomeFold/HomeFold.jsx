@@ -66,8 +66,8 @@ const HomeFold = () => {
                                                     Login
                                                 </Button>
                                                 <Dropdown.Divider />
-                                                <Link to="/host/homes">Host your Home</Link>
-                                                <Link to="/host/dashboard">Dashboard</Link>
+                                                <Link to="/host">Host your Home</Link>
+                                                <Link to="/dashboard">Dashboard</Link>
                                                 <Link to="/admin">Admin</Link>
                                                 <Link to="/help">Help</Link>
                                             </Dropdown.Menu>
