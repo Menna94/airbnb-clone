@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export const PropertyType = ({formData , setForm ,navigation}) => {
     const {type}= formData;
     console.log(type)
     return (
+        <>
+        <ProgressBar now={25}/>
         <div class="container">
             <div class="row description">
             <div class="col-md-6 offset-md-3">
@@ -12,7 +15,6 @@ export const PropertyType = ({formData , setForm ,navigation}) => {
                 <form >
                     <div className="form-group">
                             <select class="form-select" class="form-control" type="text"  class="price" id="type" aria-describedby="type"   placeholder="Proberty address" name="type" value={type}  onChange={setForm}>
-                                <option selected>select one</option>
                                 <option value="apartment">Apartment</option>
                                 <option value="room">Room</option>
                                 <option value="house">House</option>
@@ -26,5 +28,6 @@ export const PropertyType = ({formData , setForm ,navigation}) => {
             </div>
         </div>
     </div>
+    </>
     )
 }

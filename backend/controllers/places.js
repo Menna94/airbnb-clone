@@ -94,7 +94,3 @@ module.exports = {
     updatePlace,
     deletePlace
 };
-
-export { createPlace, getPlaces, getPlacesByUID, updatePlaceAminities };
-
-//added comment
