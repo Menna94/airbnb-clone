@@ -55,7 +55,7 @@ export const MultyStepForm = () => {
         steps,
         initialStep: 0
     })
-    console.log(1, formData);
+    console.log("current form data ", formData);
 
 
     const props = { formData, setForm, navigation }
@@ -78,7 +78,6 @@ export const MultyStepForm = () => {
             return <UploadPhotos {...props} />
         case "amenities":
             return <Amenities {...props} />
-
     }
     console.log(step);
     return (
