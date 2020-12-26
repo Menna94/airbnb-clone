@@ -34,7 +34,7 @@ const HomeFold = () => {
                             <div className="col-auto">
                                 <nav className="h-header__nav">
                                     <div className="h-header__become-host">
-                                        <Link to="/host/homes">Become a host</Link>
+                                        <Link to="/host">Become a host</Link>
                                     </div>
                                     <div className="h-header__actions">
                                         <Dropdown>
