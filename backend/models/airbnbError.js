@@ -5,4 +5,4 @@ class airbnbError extends Error{
     }
 }
 
-export default airbnbError;
+module.exports =  airbnbError;

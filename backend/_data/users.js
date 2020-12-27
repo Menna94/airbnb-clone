@@ -7,7 +7,7 @@ const users=[
         password:bcrypt.hashSync("123456",10),
         profileImg:"https://ichef.bbci.co.uk/news/1024/cpsprodpb/184A0/production/_109788499_megan.jpg",
         identityCard:12345678909876,
-        places:[]
+        places:["5fdc841f2c75312528c187d3"]
     }
 ]
 

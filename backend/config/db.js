@@ -1,9 +1,8 @@
-import mongoose from 'mongoose'
-
+const mongoose = require('mongoose');
 
 const DBConnection = async() =>{
     try{
-        const conn = await mongoose.connect('mongodb://localhost:27017/listingsLogic',{
+        const conn = await mongoose.connect('mongodb://localhost:27017/airbnb',{
             useUnifiedTopology:true,
             useNewUrlParser:true,
             useCreateIndex:true
@@ -15,4 +14,4 @@ const DBConnection = async() =>{
     }
 }
 
-export default DBConnection;
+module.exports = DBConnection;

@@ -1,12 +1,11 @@
 import React from 'react'
-import Cities from './components/governments/Cities'
-import Places from './components/LiveEnywhere/Places'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import HomeScreen from './screens/HomeScreen'
 function App() {
     return (
-        <main className='py-3'>
-            <Cities />
-            <Places />
-        </main>
+        <Router>
+            <Route path="/" component={HomeScreen} exact />
+        </Router>
     )
 }
 
