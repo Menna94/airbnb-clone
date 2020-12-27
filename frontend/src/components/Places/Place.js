@@ -14,9 +14,9 @@ export default class Place extends Component {
             <>
                 <Col lg={3} md={6} sm={12}>
                     <div className="img-wrapper" >
-                        <a href={`/search/${this.props.id}`}>
+                        <Link to={`/search/${this.props._id}`}>
                             <img src={cityImg} alt='Houses Pictures' className='pic' />
-                        </a>
+                        </Link>
                         <span className="heart"><i className={this.props.heart}></i></span>
                     </div>
                     <span className='rate'>

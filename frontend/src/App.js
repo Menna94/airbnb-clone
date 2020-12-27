@@ -5,6 +5,7 @@ import PlacesScreen from './screens/PlacesScreen'
 import HostScreen from './screens/HostScreen';
 import SearchPage from './screens/SearchPage';
 import Propertieslist from './components/Properties/Propertieslist';
+import PlacesInfo from './components/PlacesInfo/PlacesInfo'
 
 
 function App() {
@@ -12,9 +13,8 @@ function App() {
         <Router>
             <Switch>
                 <Route path="/" component={HomeScreen} exact />
-                <Route path='/search' component={SearchPage} />
-                <Route path='/search/:id' component={PlacesScreen} />
-                <Route path="/search" component={SearchPage} />
+                <Route path='/search' component={SearchPage} exact />
+                <Route path='/search/:id' component={PlacesInfo} exact />
                 <Route path="/host" component={HostScreen} exact />
                 <Route path="/properties" component={Propertieslist} exact />
             </Switch>

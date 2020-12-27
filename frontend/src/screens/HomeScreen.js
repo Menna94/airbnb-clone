@@ -10,22 +10,15 @@ import Cities from '../components/Cities/Cities'
 import Places from '../components/Live anywhere/Places'
 
 const HomeScreen = () => {
-    return ( <
-        >
-        <
-        HomeFold / >
-        <
-        Cities / >
-        <
-        Places / >
-        <
-        Experience / >
-        // <Gift />
-        <
-        Future / >
-        <
-        Footer / > { /* <MultyStepForm/> */ } <
-        />
+    return (<>
+        <HomeFold />
+        <Cities />
+        <Places />
+        <Experience />
+        /*Gift Compo Here*/
+        <Future />
+        <Footer /> { /* <MultyStepForm/> */}
+    </>
     )
 }
 export default HomeScreen

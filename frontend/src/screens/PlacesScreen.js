@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
+//import { Link } from 'react-router-dom'
+import PlacesInfo from '../components/PlacesInfo/PlacesInfo'
 
-class PlacesScreen extends Component {
-    render() {
-        return (
-            <div>
-                Houses Info Goes Here !
-            </div>
-        )
-    }
+
+
+const PlacesScreen = ({ match }) => {
+    return (
+        <Container>
+            <PlacesInfo />
+        </Container>
+    )
 }
 
 export default PlacesScreen
