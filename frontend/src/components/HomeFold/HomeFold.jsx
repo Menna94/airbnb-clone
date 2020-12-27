@@ -7,6 +7,7 @@ import { ReactComponent as ListIcon } from '../../images/icon-list.svg'
 import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
+// import SearchBar from './SearchBar'
 
 const HomeFold = () => {
     const [showLogin, setShowLogin] = useState(false)
@@ -33,7 +34,7 @@ const HomeFold = () => {
                             <div className="col-auto">
                                 <nav className="h-header__nav">
                                     <div className="h-header__become-host">
-                                        <Link to="/host/homes">Become a host</Link>
+                                        <Link to="/host">Become a host</Link>
                                     </div>
                                     <div className="h-header__actions">
                                         <Dropdown>
@@ -65,8 +66,9 @@ const HomeFold = () => {
                                                     Login
                                                 </Button>
                                                 <Dropdown.Divider />
-                                                <Link to="/host/homes">Host your Home</Link>
-                                                <Link to="/host/dashboard">Dashboard</Link>
+                                                <Link to="/host">Host your Home</Link>
+                                                <Link to="/dashboard">Dashboard</Link>
+                                                <Link to="/admin">Admin</Link>
                                                 <Link to="/help">Help</Link>
                                             </Dropdown.Menu>
                                         </Dropdown>
@@ -80,6 +82,7 @@ const HomeFold = () => {
                 <div className="search-bar">
                     <div className="container">
                         <h2 className="text-center text-white">Search Bar Goes Here ...</h2>
+                        {/* <SearchBar /> */}
                     </div>
                 </div>
 

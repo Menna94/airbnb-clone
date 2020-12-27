@@ -14,6 +14,12 @@
     border-radius: 10px !important;
 }
 
+/*-------------------media Query-------------------*/
+
+@media(min-width:800px) {
+  h2{font-size: 100px}
+  h3{font-size: 80px;}
+}
 .btn_learn {
     background-color: white !important;
 }
@@ -27,22 +33,19 @@
         font-size: 20px;
     }
 }
-@media (min-width: 500px) and(max-width:800px) {
-    h2 {
-        font-size: 10px;
-    }
-    h3 {
-        font-size: 5px;
-    }
+
+
+@media(min-width:500px) {
+  h2{font-size: 35px}
+  h3{font-size: 30px;}
+ 
 }
-@media (min-width: 200px) and(max-width:500px) {
-    h2 {
-        font-size: 5px;
-    }
-    h3 {
-        font-size: 3px;
-    }
-}
+@media(min-width:200px) {
+  h2{font-size: 20px}
+  h3{font-size: 15px;}
+} 
+
+
 
 @media (max-width: 768px) {
     .btn_learn {
