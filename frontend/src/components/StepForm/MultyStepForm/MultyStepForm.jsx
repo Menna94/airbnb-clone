@@ -12,25 +12,25 @@ import { Guests } from './../Guests/Guests';
 import { Amenities } from '../Amenities/Amenities';
 
 const defaultData = {
-    address: '',
-    type: '',
-    description: '',
+    address: 'dumb address',
+    type: 'room',
+    description: 'dump description',
     //price page
-    price: '',
-    title: '',
+    price: '181',
+    title: 'dummy title',
     //location page
-    country: '',
-    city: '',
-    street: '',
+    country: 'dummy country',
+    city: 'dummy city',
+    street: 'dummy street',
     //gusts page
-    bedrooms: '',
-    beds: '',
-    bathrooms: '',
-    guests: '',
+    bedrooms: '3',
+    beds: '6',
+    bathrooms: '9',
+    guests: '12',
     //amenities page
     //uploadphotos page
-    wifi: false,
-    tv: false,
+    wifi: true,
+    tv: true,
     ac: false,
     shampoo: false,
     iron: false,
@@ -39,6 +39,7 @@ const defaultData = {
 
 }
 const steps = [
+    { id: 'uploadphoto' },
     { id: 'address' },
     { id: 'type' },
     { id: 'guests' },
@@ -46,7 +47,6 @@ const steps = [
     { id: 'amenities' },
     { id: 'description' },
     { id: 'price' },
-    { id: 'uploadphoto' }
 ]
 
 export const MultyStepForm = () => {

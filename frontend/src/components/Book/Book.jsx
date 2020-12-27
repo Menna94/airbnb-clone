@@ -14,15 +14,15 @@ export default function Book() {
     return (
         <div className='container' >
          <h1 className="join_p">From castles to condos, guests book it all</h1>
-        <div class="row book" >
+        <div className="row book" >
       
              {
                users.map((item)=>
-                 <div class="col-sm">
-                    <div class="card mb-3">
-                        <img  class="card-img-top" src={item.imgUrl} alt="..."/>
+                 <div className="col-sm">
+                    <div className="card mb-3">
+                        <img  className="card-img-top" src={item.imgUrl} alt="..."/>
                     </div>
-                    <h6 class="card-title">{item.title}</h6>
+                    <h6 className="card-title">{item.title}</h6>
                 </div>
                )
              }

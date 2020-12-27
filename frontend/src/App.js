@@ -3,18 +3,26 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen'
 import HostScreen from './screens/HostScreen';
 import SearchPage from './screens/SearchPage';
+import PlaceInfoScreen from './screens/placeInfoScreen';
 import Propertieslist from './components/Properties/Propertieslist';
-            
+import { AppProdivder } from './contexts/AppContext';
+import  AppWrapper  from './AppWrapper.js';
+
 function App() {
-    return (
-        <Router>
-            <Switch>
-                <Route path="/" component={HomeScreen} exact />
-                <Route path="/search" component={SearchPage} />
-                <Route path="/host" component={HostScreen} exact />
-                <Route path="/properties" component={Propertieslist} exact /> 
-            </Switch>
-        </Router>
+        return (
+        <AppProdivder>
+            <AppWrapper>
+                <Router>
+                    <Switch>
+                        <Route path="/" component={HomeScreen} exact />
+                        <Route path="/search" component={SearchPage} exact />
+                        <Route path="/search/:id" component={PlaceInfoScreen} exact />
+                        <Route path="/host" component={HostScreen} exact />
+                        <Route path="/dashboard" component={Propertieslist} exact />
+                    </Switch>
+                </Router>
+            </AppWrapper>
+        </AppProdivder>
     )
 }
 
