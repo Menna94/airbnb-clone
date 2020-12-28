@@ -15,7 +15,7 @@ function Info() {
                 <Button variant="outlined" className='searchPage__btn'><span>More filters</span></Button>
 
                 <Button variant='outlined' className='searchPage__map float-right'>
-                    <span><i class="far fa-map"></i></span>
+                    <span><i className="far fa-map"></i></span>
                     <span>Show map</span>
                 </Button>
                 <div className='mt-4'>

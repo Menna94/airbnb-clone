@@ -24,32 +24,31 @@ const Future = () => {
                                 <Tab
                                     eventKey="arts"
                                     title="Destinations for arts & culture"
-                                    id="artsCulture"
                                     className="tab">
                                     <ArtsCulture />
                                 </Tab>
                                 <Tab
                                     eventKey="outdoor"
                                     title="Destinations for outdoor adventure  "
-                                    id="outdoorAdventure">
+                                >
                                     <Outdoor />
                                 </Tab>
                                 <Tab
                                     eventKey="mountain"
                                     title="Mountain cabins"
-                                    id="mountainCabins">
+                                >
                                     <Mountain />
                                 </Tab>
                                 <Tab
                                     eventKey="beach"
                                     title="Beach destinations"
-                                    id="beachDestinations">
+                                >
                                     <Beach />
                                 </Tab>
                                 <Tab
                                     eventKey="popular"
                                     title="Popular destinations"
-                                    id="popularDestinations">
+                                >
                                     <Popular />
                                 </Tab>
                             </Tabs>

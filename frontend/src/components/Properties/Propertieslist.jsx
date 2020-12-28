@@ -1,25 +1,30 @@
-import React, { Component } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Property from './Property'
 import Footer from '../Footer/Footer';
+import axios from 'axios';
+import { AppContext } from '../../contexts/AppContext';
 
 
-export default class Propertieslist extends Component {
+export default function Propertieslist(props) {
+    const [properties, setProperities] = useState([]);
+    const { token } = useContext(AppContext);
 
-    state = {
-        properties: [
-            { _id: 1, type: "apart 1", img: "images/5.jpg", beds: 2, baths: 1, location: "123abc", bedrooms: 3 },
-            { _id: 2, type: "apart 2", img: "images/6.jpg", beds: 3, baths: 2, location: "123abc", bedrooms: 2 },
-            { _id: 3, type: "apart 3", img: "images/7.jpg", beds: 5, baths: 1, location: "123abc", bedrooms: 2 },
-            { _id: 4, type: "Room", img: "images/5.jpg", beds: 2, baths: 1, location: "123abc", bedrooms: 1 },
-        ],
-    }
-    componentDidMount() {
+    useEffect(() => {
+        console.log(17, token);
+        if (token) {
+            axios.get(`http://localhost:8000/api/v1/places/getuserplace`, { headers: { authorization: `Bearer ${token}` } }).then((res) => {
+                setProperities(res.data.data);
+            }).catch((err) => {
+                console.log('error');
+                console.log(err.response);
+            })
 
-    }
+        }
+    }, [token])
 
-    handleDelete = (property) => {
+    let handleDelete = (property) => {
         // clone
-        let properties = this.state.properties;
+        let properties = [...properties];
         // Edit
         properties = properties.filter((item) => item._id !== property._id)
         // setState
@@ -27,42 +32,40 @@ export default class Propertieslist extends Component {
 
     }
 
-    handleEdit = (property) => {
+    let handleEdit = (property) => {
         alert(property._id)
     }
 
 
-    render() {
-        return (
-            <React.Fragment>
-                <div className="container py-5">
-                    <table class="table table-striped table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Listing</th>
-                                <th scope="col">Bedrooms</th>
-                                <th scope="col">Beds</th>
-                                <th scope="col">Baths</th>
-                                <th scope="col">Location</th>
-                                <th scope="col">Delete</th>
-                                <th scope="col">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.properties.map(item =>
-                                <Property
-                                    key={item._id}
-                                    data={item}
-                                    onDelete={this.handleDelete}
-                                    onEdit={this.handleEdit}
-                                />
-                            )}
-                        </tbody>
-                    </table>
-                    </div>
-                    <Footer />
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            <div className="container py-5">
+                <table className="table table-striped table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Bedrooms</th>
+                            <th scope="col">Beds</th>
+                            <th scope="col">Baths</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Delete</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {properties.map(item =>
+                            <Property
+                                key={item._id}
+                                data={item}
+                                onDelete={handleDelete}
+                                onEdit={handleEdit}
+                            />
+                        )}
+                    </tbody>
+                </table>
+            </div>
+            <Footer />
+        </React.Fragment>
+
+    )
 }

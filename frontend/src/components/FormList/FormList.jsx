@@ -4,8 +4,8 @@ import './FormList.css'
 export default function FormList() {
     return (
             <div className="row Form">
-                <div class="col-6 d-xs-none ">
-                    <div class="FormText">
+                <div className="col-6 d-xs-none ">
+                    <div className="FormText">
                         <h6>
                         SEE WHAT’S POSSIBLE
                         </h6>
@@ -17,16 +17,16 @@ export default function FormList() {
                         </h3>
                     </div> 
                 </div>
-                <div class="col-6 ">
-                       <div class="form-group">
-                        <form class="allSides">
+                <div className="col-6 ">
+                       <div className="form-group">
+                        <form className="allSides">
                         <h6>Tell us more about your place and we'll update your estimate</h6>
-                            <div class="smallForm">
-                                <div class="address">
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="address"/>
+                            <div className="smallForm">
+                                <div className="address">
+                                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="address"/>
                                 </div>
                                 <div>
-                                    <select class="form-select" class="form-control" >
+                                    <select className="form-select" className="form-control" >
                                         <option selected>Entire place</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -34,7 +34,7 @@ export default function FormList() {
                                     </select>
                                 </div>
                                 <div>
-                                    <select class="form-select" class="form-control" >
+                                    <select className="form-select" className="form-control" >
                                         <option selected>guest</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -42,9 +42,9 @@ export default function FormList() {
                                     </select>
                                 </div>
                             </div>
-                            <div class="smallForm">
+                            <div className="smallForm">
                                 <div>
-                                    <select class="form-select" class="form-control" >
+                                    <select className="form-select" className="form-control" >
                                         <option selected>Entire place</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -52,7 +52,7 @@ export default function FormList() {
                                     </select>
                                 </div>
                                 <div>
-                                    <select class="form-select" class="form-control" >
+                                    <select className="form-select" className="form-control" >
                                         <option selected>Entire place</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -60,7 +60,7 @@ export default function FormList() {
                                     </select>
                                 </div>
                                 <div>
-                                    <select class="form-select" class="form-control" >
+                                    <select className="form-select" className="form-control" >
                                         <option selected>guest</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -68,7 +68,7 @@ export default function FormList() {
                                     </select>
                                 </div>
                             </div>
-                            <button type="button" class=" btn Formstart_btn">Start your listing</button>
+                            <button type="button" className=" btn Formstart_btn">Start your listing</button>
                     </form>
                 </div>
              </div>
