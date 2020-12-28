@@ -29,31 +29,14 @@ export const Price = ({ formData, setForm, navigation }) => {
                             Set up Smart Pricing to automatically keep your nightly prices
                             competitive as demand in your area changes.
                         </p>
-                        <form>
+                        <form  onSubmit = {onSubmit}>
                             <div className="form-group">
-                                <label>price</label>
-                                <input
-                                    type="number"
-                                    className="price"
-                                    id="price"
-                                    aria-describedby="price"
-                                    name="price"
-                                    value={price}
-                                    onChange={setForm}
-                                />
+                                <label>price ($)</label>
+                                <input type="number"  class="price" id="price" aria-describedby="price"   placeholder="price"  name="price" min="1"  max="1000000" required value={price}  onChange={setForm}/>
                             </div>
                             <div className="form-group">
                                 <label>title</label>
-                                <input
-                                    type="text"
-                                    className="price"
-                                    id="title"
-                                    aria-describedby="title"
-                                    placeholder="title"
-                                    name="title"
-                                    value={title}
-                                    onChange={setForm}
-                                />
+                                <input type="text"  class="price" id="title" aria-describedby="title"   placeholder="title" name="title" minlength="5" maxlength="100" required value={price} value={title}  onChange={setForm}/>
                             </div>
                             <div className="d-flex justify-content-between">
                                 <p className="myLink" onClick={() => navigation.previous()}>
@@ -63,9 +46,7 @@ export const Price = ({ formData, setForm, navigation }) => {
                                         </a>
                                     </b>
                                 </p>
-                                <button className="btn btn_start" onClick={() => navigation.next()}>
-                                    next
-                                </button>
+                                <button class="btn btn_start" class="btn btn_start" type="submit">next</button>
                             </div>
                         </form>
                     </div>

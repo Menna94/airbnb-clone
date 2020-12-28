@@ -1,5 +1,5 @@
 import React from 'react'
-import './gift.css'
+import './Gift.css'
 export default function Gift() {
     return (
         <div className="container ">

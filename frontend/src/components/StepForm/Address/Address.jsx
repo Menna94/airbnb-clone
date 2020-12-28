@@ -32,7 +32,6 @@ export const Address = ({ formData, setForm, navigation }) => {
         setaddressErr(addressErr)
         return isValid
     }
-
     return (
         <>
             <ProgressBar now={12.5} />
@@ -41,23 +40,16 @@ export const Address = ({ formData, setForm, navigation }) => {
                     <div className="col-6 ">
                         <h4 className="price_p">Let’s get started listing your space.</h4>
                         <h6>Where’s your place located?</h6>
-                        <form>
+                        <form onSubmit = {onSubmit}>
                             <div className="form-group">
-                                <input
-                                    type="text"
-                                    className="price"
-                                    id="address"
-                                    aria-describedby="address"
-                                    placeholder="Proberty address"
-                                    name="address"
-                                    value={address}
-                                    onChange={setForm}
-                                />
+                            <input type="text"  class="price" id="address" aria-describedby="address" min={5} max={100}  placeholder="Proberty address" name="address" value={address}   onChange={setForm}  />
                             </div>
+                            {Object.keys(addressErr).map((key)=>{
+                                return <div style={{color:"red"}}>{addressErr[key]}</div>
+                            })}
+                            <br/>
                             <div className="d-flex justify-content-between">
-                                <button className="btn btn_start" onClick={() => navigation.next()}>
-                                    continue
-                                </button>
+                            <button class="btn btn_start"  type="submit">continue</button>
                             </div>
                         </form>
                     </div>
