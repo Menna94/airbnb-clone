@@ -184,8 +184,8 @@ const deletePlace = asyncHandler(async (req, res, next) => {
     })
 })
 
-<<<<<<< HEAD
-<<<<<<< HEAD:backend/controllers/placeController.js
+// <<<<<<< HEAD
+// <<<<<<< HEAD:backend/controllers/placeController.js
 
 
 
@@ -227,24 +227,6 @@ const updatePlaceDetails = async (req,res,next)=>{
 
 }
 
-
-export{
-   createPlace,
-   getPlaces,
-   getPlacesByUID,
-   updatePlaceAminities 
-}
-=======
-module.exports = {
-    createPlace,
-    getPlaces,
-    getPlacesByUID,
-    updatePlaceAminities
-};
-
->>>>>>> cf66e8b105b68978217e3cb606a146e83a93165c:backend/controllers/places.js
-
-=======
 module.exports = {
     getPlace,
     getPlaces,
@@ -253,4 +235,4 @@ module.exports = {
     deletePlace,
     getUserPlaces
 };
->>>>>>> d21d6d56ced340d4d6850c49ba5576d92d9a26fa
+
