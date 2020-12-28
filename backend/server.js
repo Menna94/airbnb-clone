@@ -74,6 +74,11 @@ app.use(hpp());
 app.use('/api/v1/places', placeRoutes);
 app.use('/api/v1/auth', authRoutes);
 
+// PayPal Config
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
+
 // error handler
 app.use(errorHandler);
 
