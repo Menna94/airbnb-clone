@@ -8,6 +8,7 @@ import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
 import { AppContext } from '../../contexts/AppContext'
+import SearchBar from './SearchBar'
 
 const HomeFold = () => {
     const { logged, logout } = useContext(AppContext)
@@ -95,8 +96,7 @@ const HomeFold = () => {
 
                 <div className="search-bar">
                     <div className="container">
-                        <h2 className="text-center text-white">Search Bar Goes Here ...</h2>
-                        {/* <SearchBar /> */}
+                        <SearchBar />
                     </div>
                 </div>
 
