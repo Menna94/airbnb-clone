@@ -5,7 +5,8 @@ const DBConnection = async() =>{
         const conn = await mongoose.connect('mongodb://localhost:27017/airbnb',{
             useUnifiedTopology:true,
             useNewUrlParser:true,
-            useCreateIndex:true
+            useCreateIndex:true,
+            useFindAndModify: false
         })
         console.log(`Database Connected: ${conn.connection.host}`);
     } catch (err){

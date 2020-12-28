@@ -67,8 +67,25 @@ app.use(limiter)
 app.use(hpp());
 
 // routes
+app.post('/help', (req, res)=>{
+    console.log(req.files);
+    console.log('heeelp');
+    // console.log(req.files.files[0]);
+    console.log(req.body);
+    console.log(JSON.parse(req.body.aminities));
+    console.log(JSON.parse(req.body.location).country);
+    res.json({
+        success: true,
+        data: 'hi'
+    })
+})
 app.use('/api/v1/places', placeRoutes);
 app.use('/api/v1/auth', authRoutes);
+
+// PayPal Config
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
 
 // error handler
 app.use(errorHandler);
@@ -85,3 +102,4 @@ process.on('unhandledRejection', (err, promise) => {
         process.exit(1);
     });
 })
+
