@@ -4,12 +4,12 @@ import './HereToHelp.css'
 export default function HereToHelp() {
     return (
         <div>
-            <div class="container">
-                <div class="row HelpRaw">
-                      <div class="col">
+            <div className="container">
+                <div className="row HelpRaw">
+                      <div className="col">
                         <h1>We’re here to help</h1>
                       </div>
-                      <div class="col">
+                      <div className="col">
 
                         <div className="help">
                             <h6>24/7 customer support</h6>

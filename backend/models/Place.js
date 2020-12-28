@@ -6,6 +6,7 @@ const placeSchema = mongoose.Schema({
         required: [true, 'please specify owner'],
         ref: 'User'
     },
+    reserverations: [{startDate: Date, endDate: Date}],
     approved: {
         type: Boolean,
         default: false
@@ -80,7 +81,8 @@ const placeSchema = mongoose.Schema({
         shampoo: { type: Boolean, default: false },
         ac: { type: Boolean, default: false },
         fireplace: { type: Boolean, default: false }
-    }
+    },
+    images: [String]
 }, {
     timestamps: true
 })

@@ -3,6 +3,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const fileupload = require('express-fileupload');
 const cors = require('cors');
+const path = require('path');
 
 // loggin module
 const morgan = require('morgan');
@@ -35,6 +36,9 @@ DBConnection();
 
 // use express.json to parse body
 app.use(express.json());
+
+// static folder
+app.use(express.static(path.join(__dirname, '../public')))
 
 // enable cors
 app.use(cors());
@@ -85,3 +89,4 @@ process.on('unhandledRejection', (err, promise) => {
         process.exit(1);
     });
 })
+

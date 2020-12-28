@@ -1,71 +1,83 @@
 import { Add, Update } from '@material-ui/icons';
 import React from 'react';
-import {useForm , useState, useStep} from "react-hooks-helper";
+import { useForm, useState, useStep } from "react-hooks-helper";
 import { Address } from '../Address/Address';
 
 import { Description } from '../Description/Description';
-import {Price} from '../Price/Price';
+import { Price } from '../Price/Price';
 import { UploadPhotos } from '../UploadPhotos/UploadPhotos';
 import { PropertyType } from './../ProbertyType/PropertyType';
 import { Location } from './../location/Location';
+import { Guests } from './../Guests/Guests';
+import { Amenities } from '../Amenities/Amenities';
 
-const defaultData={
-    address:'',
-    type:'',
-    description:'',
+const defaultData = {
+    address: 'dumb address',
+    type: 'room',
+    description: 'dump description',
     //price page
-    price:'', 
-    title:'',
+    price: '181',
+    title: 'dummy title',
     //location page
-    country:'',
-    city:'',
-    street:'',
+    country: 'dummy country',
+    city: 'dummy city',
+    street: 'dummy street',
     //gusts page
-    bedrooms:'',
-    beds:'',
-    bathrooms:'',
+    bedrooms: '3',
+    beds: '6',
+    bathrooms: '9',
+    guests: '12',
+    //amenities page
     //uploadphotos page
-    uploadphoto:'',
-    
-   
+    wifi: true,
+    tv: true,
+    ac: false,
+    shampoo: false,
+    iron: false,
+    fireplace: false,
+    heat: false
+
 }
-
-
 const steps = [
-    {id:'address'},
-    {id:'type'},
-    {id:'description'},
-    {id:'price'},
-    {id:'location'},
-    {id:'uploadphoto'},
+    { id: 'address' },
+    { id: 'type' },
+    { id: 'guests' },
+    { id: 'location' },
+    { id: 'amenities' },
+    { id: 'description' },
+    { id: 'price' },
+    { id: 'uploadphoto' },
 ]
 
 export const MultyStepForm = () => {
-    const [formData , setForm]= useForm(defaultData);
-    const {step , navigation}=  useStep({
-        steps ,
-        initialStep:0
+    const [formData, setForm] = useForm(defaultData);
+    const { step, navigation } = useStep({
+        steps,
+        initialStep: 0
     })
-    console.log(1, formData);
+    console.log("current form data ", formData);
 
-    const props={formData ,setForm , navigation}
 
-    switch(step.id){
-        case "address" :
-            return <Address {...props}/> 
+    const props = { formData, setForm, navigation }
+
+
+    switch (step.id) {
+        case "address":
+            return <Address {...props} />
         case "type":
-            return <PropertyType {...props}/>     
+            return <PropertyType {...props} />
         case "description":
-            return <Description {...props}/>
+            return <Description {...props} />
         case "price":
-            return <Price {...props}/> 
+            return <Price {...props} />
         case "location":
-            return <Location {...props}/> 
-        case "uploadphoto" :
-            return <UploadPhotos {...props}/>
-          
-        
-         
+            return <Location {...props} />
+        case "guests":
+            return <Guests {...props} />
+        case "uploadphoto":
+            return <UploadPhotos {...props} />
+        case "amenities":
+            return <Amenities {...props} />
     }
     console.log(step);
     return (

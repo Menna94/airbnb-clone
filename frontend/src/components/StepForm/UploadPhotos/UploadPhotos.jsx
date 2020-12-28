@@ -1,57 +1,138 @@
-import React ,{useState} from 'react';
-import './UploadPhotos.css'
 
-export const UploadPhotos = ({formData , setForm ,navigation}) => {
-    const [image , setImage] = useState('')
-    const [loading , setloading] = useState(false)
+import './UploadPhotos.css';
+import React, { useEffect, useState, useContext } from 'react';
+import { useDropzone } from 'react-dropzone';
+import axios from 'axios';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import {AppContext} from '../../../contexts/AppContext';
 
-    const uploadImage = async e =>{
-        const files = e.target.files
-        const data = new FormData()
-        data.append('file' , files[0])
-        ///////////'aalaa' from back ??
-        data.append('upload_present' ,'aalaa')
-        setloading(true)
-        const res = await fetch (
-            'http//////////////////api url',
-            {
-                method:'post',
-                body:data
+
+const thumbsContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 16
+};
+
+const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eaeaea',
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: 'border-box'
+};
+
+const thumbInner = {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden'
+};
+
+const img = {
+    display: 'block',
+    width: 'auto',
+    height: '100%'
+};
+
+export const UploadPhotos = ({ formData, setForm, navigation }) => {
+    const [files, setFiles] = useState([]);
+    const {token} = useContext(AppContext);
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: 'image/*',
+        maxFiles: 5,
+        multiple: true,
+        onDrop: acceptedFiles => {
+            setFiles(acceptedFiles.map(file => Object.assign(file, {
+                preview: URL.createObjectURL(file)
+            })));
+        }
+    });
+
+    function handleSubmit() {
+        // if (files.length !== 5) {
+        //     return alert('please upload 5 photos');
+        // }
+        const aminities = {
+            wifi: formData.wifi,
+            tv: formData.tv,
+            ac: formData.ac,
+            shampoo: formData.shampoo,
+            iron: formData.iron,
+            fireplace: formData.fireplace,
+            heat: formData.heat
+        }
+        const location = {
+            country: formData.country,
+            city: formData.city,
+            street: formData.street
+        }
+
+        const myForm = new FormData();
+        myForm.append('file1', files[0]);
+        myForm.append('file2', files[1]);
+        myForm.append('file3', files[2]);
+        myForm.append('file4', files[3]);
+        myForm.append('file5', files[4]);
+
+        myForm.append('title', formData.title);
+        myForm.append('description', formData.description);
+        myForm.append('address', formData.address);
+        myForm.append('price', formData.price);
+        myForm.append('propertyType', formData.type);
+
+        myForm.append('guests', formData.guests);
+        myForm.append('beds', formData.beds);
+        myForm.append('bathrooms', formData.bathrooms);
+        myForm.append('bedrooms', formData.bedrooms);
+
+        myForm.append('aminities', JSON.stringify(aminities));
+        myForm.append('location', JSON.stringify(location));
+
+        axios.post('http://localhost:8000/api/v1/places/create', myForm, {
+            headers: {
+                authorization: `Bearer ${token}`
             }
-        )
-        const file = await res.json()
-        //img url
-        setImage(file.secure_url)
-        setloading(false)
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err.response.data);
+        })
     }
 
-    return (
 
-        <div class="container">
-            <div class="row description">
-                <div class="col-md-6 offset-md-3">
-                    <h4 className="price_p">Liven up your listing with photos</h4>
-                    <p className="price_p">Take photos using a phone or camera. Upload at least one photo to publish your listing and drag to reorder however you like. You can always add or edit your photos later.</p>
-                    <form >
-                        <div class="form-group">
-                            <div class=" uploadInput">
-                                <input  type="file" 
-                                name="file"
-                                placeholder="upload image"
-                                onChange={uploadImage}
-                                />
-                                {loading ? (
-                                    <h3>loading..........</h3>
-                                ):(
-                                <img src={image} style={{width:'300 px'}}></img>
-                                )}
-                            </div>
-                        </div>
-                        {/* <button type="submit" class="btn btn_start" >next</button> */}
-                    </form>
-                </div>
+    const thumbs = files.map(file => (
+        <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+                <img
+                    src={file.preview}
+                    style={img}
+                />
             </div>
         </div>
-        
-    )
+    ));
+
+    useEffect(() => () => {
+        // Make sure to revoke the data uris to avoid memory leaks
+        files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, [files]);
+
+    return (
+        <>
+            <ProgressBar now={100} />
+            <section className="container upload_section">
+                <div {...getRootProps({ className: 'dropzone' })} className="uploadInput">
+                    <input {...getInputProps()} />
+                    <p className="p_photos">Upload 5 photos for your place</p>
+                </div>
+                <aside style={thumbsContainer} className="photos_uploaded">
+                    {thumbs}
+                </aside>
+                <button onClick={handleSubmit} className="btn btn_start">Submit Now</button>
+            </section>
+        </>
+    );
 }
