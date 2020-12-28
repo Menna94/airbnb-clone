@@ -39,7 +39,6 @@ const defaultData = {
 
 }
 const steps = [
-    { id: 'uploadphoto' },
     { id: 'address' },
     { id: 'type' },
     { id: 'guests' },
@@ -47,6 +46,7 @@ const steps = [
     { id: 'amenities' },
     { id: 'description' },
     { id: 'price' },
+    { id: 'uploadphoto' },
 ]
 
 export const MultyStepForm = () => {

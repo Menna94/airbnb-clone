@@ -3,18 +3,27 @@ import { Container, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Place from './Place'
 import axios from 'axios';
+import { withRouter } from 'react-router-dom'
 
 class Places extends Component {
+    constructor(props){
+        super(props);
+    }
     state = {
         places: []
     }
     componentDidMount() {
-        axios.get('http://localhost:8000/api/v1/places').then((res) => {
-            console.log('loaded places');
-            this.setState({places: res.data.data});
+        console.log(this.props.location.state);
+        
+        axios.post(`http://localhost:8000/api/v1/places`, this.props.location.state).then((res) => {
+            // setProperities(res.data.data);
+            console.log(res.data);
+            this.setState({
+                places: res.data.data
+            })
         }).catch((err) => {
             console.log('error');
-            console.log(err.response.data);
+            console.log(err.response);
         })
     }
     render() {
@@ -33,4 +42,4 @@ class Places extends Component {
     }
 }
 
-export default Places
+export default withRouter(Places)

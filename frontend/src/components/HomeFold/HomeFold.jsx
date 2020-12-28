@@ -8,8 +8,12 @@ import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
 import { AppContext } from '../../contexts/AppContext';
+import { withRouter } from 'react-router-dom'
+import axios from 'axios';
 
-const HomeFold = () => {
+import {useHistory } from 'react-router-dom';
+
+const HomeFold = (props) => {
     const { logged, logout } = useContext(AppContext);
     const [showLogin, setShowLogin] = useState(false)
     const handleCloseLogin = () => setShowLogin(false)
@@ -20,6 +24,28 @@ const HomeFold = () => {
     const handleShowSignUp = () => setShowSignUp(true)
 
     const handleLogOut = () => logout();
+
+    const [location, setLocation] = useState('dummy city');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [guests, setGuests] = useState('3');
+
+    const history = useHistory();
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        console.log(location, startDate, endDate, guests);
+        console.log(props);
+        history.push('/search', {city: location, startDate, endDate, guests});
+
+        // axios.post(`http://localhost:8000/api/v1/places`, { city: location, startDate, endDate, guests }).then((res) => {
+        //     // setProperities(res.data.data);
+        //     console.log(res.data);
+        // }).catch((err) => {
+        //     console.log('error');
+        //     console.log(err.response);
+        // })
+    }
 
     return (
         <>
@@ -89,8 +115,15 @@ const HomeFold = () => {
                 </header>
 
                 <div className="search-bar">
-                    <div className="container">
-                        <h2 className="text-center text-white">Search Bar Goes Here ...</h2>
+                    <div className="container text-center">
+                        {/* <h2 className="text-center text-white">Search Bar Goes Here ...</h2> */}
+                        <form onSubmit={handleSearchSubmit}>
+                            <input type="text" placeholder="location" value={location} onChange={(e) => setLocation(e.target.value)} />
+                            <input type="date" placeholder="start" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                            <input type="date" placeholder="end" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                            <input type="number" placeholder="guests" value={guests} onChange={(e) => setGuests(e.target.value)} />
+                            <input type="submit" value="submit" />
+                        </form>
                     </div>
                 </div>
 
@@ -112,4 +145,4 @@ const HomeFold = () => {
     )
 }
 
-export default HomeFold
+export default withRouter(HomeFold)

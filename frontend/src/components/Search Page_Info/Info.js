@@ -2,13 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import './Info.css'
+import {withRouter} from 'react-router-dom';
 
-function Info() {
+function Info(props) {
+    console.log(props);
     return (
         <>
             <div className='searchPage'>
                 <div className='searchPage__info'>300+ stays</div>
-                <h1>Places to stay near you</h1>
+                <h1>Places to stay at {props?.location?.state?.city || null }</h1>
                 <Button variant="outlined" className='searchPage__btn'><span>Cancellation flexibility</span></Button>
                 <Button variant="outlined" className='searchPage__btn'><span>Type of place</span></Button>
                 <Button variant="outlined" className='searchPage__btn'><span>Price</span></Button>
@@ -30,4 +32,4 @@ function Info() {
     )
 }
 
-export default Info
+export default withRouter(Info);

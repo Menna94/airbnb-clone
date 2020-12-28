@@ -92,7 +92,7 @@ export const UploadPhotos = ({ formData, setForm, navigation }) => {
         myForm.append('aminities', JSON.stringify(aminities));
         myForm.append('location', JSON.stringify(location));
 
-        axios.post('http://localhost:8000/api/v1/places', myForm, {
+        axios.post('http://localhost:8000/api/v1/places/create', myForm, {
             headers: {
                 authorization: `Bearer ${token}`
             }

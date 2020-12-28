@@ -12,8 +12,8 @@ router.use((req, res, next)=>{
 router.get('/getuserplace', protect, getUserPlaces);
 
 router.get('/:placeId', getPlace);
-router.get('/', getPlaces);
-router.post('/', protect, createPlace);
+router.post('/create', protect, createPlace);
+router.post('/', getPlaces);
 router.put('/:placeId', protect, updatePlace);
 router.delete('/:placeId', protect, deletePlace);
 

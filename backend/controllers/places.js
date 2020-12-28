@@ -14,9 +14,11 @@ const ErrorResponse = require('../utils/errorResponse');
 // @route GET api/v1/places
 // access-> public
 const getPlaces = asyncHandler(async (req, res, next) => {
-    const { startDate, endDate, guests, beds, bedrooms, bathrooms, minPrice, maxPrice } = req.params;
+    const { city, startDate, endDate, guests, beds, bedrooms, bathrooms, minPrice, maxPrice } = req.body;
     let places;
-    if(startDate){
+    console.log(9898,startDate, endDate);
+    console.log(req.body);
+    if (startDate) {
         places = await Place.find({
             "$nor": [
                 { "reserverations.start": { "$lte": new Date(startDate) }, "reserverations.end": { "$gte": new Date(startDate) } },
@@ -24,6 +26,7 @@ const getPlaces = asyncHandler(async (req, res, next) => {
                 { "reserverations.start": { "$gte": new Date(startDate) }, "reserverations.end": { "$lte": new Date(endDate) } },
                 { "reserverations.start": { "$lte": new Date(startDate) }, "reserverations.end": { "$gte": new Date(endDate) } }
             ],
+            "location.city": city,
             guests: { $gte: guests || 1 },
             beds: { $gte: beds || 1 },
             bedrooms: { $gte: bedrooms || 1 },
@@ -33,7 +36,7 @@ const getPlaces = asyncHandler(async (req, res, next) => {
                 { price: { $gt: minPrice || 0 } },
                 { price: { $lt: maxPrice || 100000 } }
             ]
-        }) 
+        })
     } else {
         places = await Place.find();
     }
