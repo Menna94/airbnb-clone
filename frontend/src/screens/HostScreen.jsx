@@ -1,10 +1,12 @@
 import React from 'react'
-import { MultyStepForm } from '../components/StepForm/MultyStepForm/MultyStepForm';
+import { MultyStepForm } from '../components/StepForm/MultyStepForm/MultyStepForm'
+import Header from '../components/Header/Header'
 
 const HostScreen = () => {
     return (
         <>
-            <MultyStepForm/>
+            <Header headerInner={true} />
+            <MultyStepForm />
         </>
     )
 }

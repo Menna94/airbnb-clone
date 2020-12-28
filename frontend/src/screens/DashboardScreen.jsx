@@ -1,5 +1,5 @@
 import React from 'react'
-import Propertieslist from './../components/Properties/Propertieslist';
+import Propertieslist from './../components/Properties/Propertieslist'
 Propertieslist
 const DashboardScreen = () => {
     return (

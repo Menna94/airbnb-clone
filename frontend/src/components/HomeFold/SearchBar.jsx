@@ -51,7 +51,7 @@ const SearchBar = (props) => {
                             selectsEnd
                             startDate={startDate}
                             endDate={endDate}
-                            minDate={startDate}
+                            minDate={startDate || new Date()}
                             placeholderText="Add dates"
                             autoComplete="off"
                             isClearable
@@ -69,7 +69,7 @@ const SearchBar = (props) => {
                         />
                     </div>
                     <button type="submit" className="searchBar__submit">
-                        <i class="fas fa-search"></i>
+                        <i className="fas fa-search"></i>
                     </button>
                 </div>
             </form>
