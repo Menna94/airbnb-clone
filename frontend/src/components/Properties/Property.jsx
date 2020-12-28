@@ -11,12 +11,11 @@ export default function Property(props) {
         return (
             <React.Fragment>
                 <tr>
-                    <td className="align-middle">{props.data._id}</td>
-                    <td className="align-middle" style={{ width: '100px' }}><img src={props.data.img} style={{ height: '100px' }} />{props.data.type}</td>
+                    <td className="align-middle" style={{ width: '100px' }}><img src={`http://localhost:8000/uploads/${props.data.images[0]}`} style={{ height: '100px' }} />{props.data.type}</td>
                     <td className="align-middle">{props.data.bedrooms}</td>
                     <td className="align-middle">{props.data.beds}</td>
-                    <td className="align-middle">{props.data.baths}</td>
-                    <td className="align-middle">{props.data.location}</td>
+                    <td className="align-middle">{props.data.bathrooms}</td>
+                    <td className="align-middle">{props.data.location.city}</td>
                     {/* <td className="align-middle"><button className="btn btn-danger" onClick={() => { this.props.onDelete(this.props.data) }}>Delete</button></td> */}
                     <td className="align-middle">
                         <Button variant="primary" onClick={() => setModalShow(true)} className="btn btn-danger">

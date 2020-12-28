@@ -36,38 +36,32 @@ export const Address = ({ formData, setForm, navigation }) => {
     return (
         <>
             <ProgressBar now={12.5} />
-            <div class="container">
-                <div class="row description">
-                    <div class="col-6 ">
+            <div className="container">
+                <div className="row description">
+                    <div className="col-6 ">
                         <h4 className="price_p">Let’s get started listing your space.</h4>
                         <h6>Where’s your place located?</h6>
-                        <form onSubmit={onSubmit}>
-                            <div class="form-group">
+                        <form>
+                            <div className="form-group">
                                 <input
                                     type="text"
-                                    class="price"
+                                    className="price"
                                     id="address"
                                     aria-describedby="address"
-                                    min={5}
-                                    max={100}
                                     placeholder="Proberty address"
                                     name="address"
                                     value={address}
                                     onChange={setForm}
                                 />
-                                <br />
-                                {Object.keys(addressErr).map((key) => {
-                                    return <div style={{ color: 'red' }}>{addressErr[key]}</div>
-                                })}
                             </div>
                             <div className="d-flex justify-content-between">
-                                <button class="btn btn_start" type="submit">
+                                <button className="btn btn_start" onClick={() => navigation.next()}>
                                     continue
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <div class="col-6 d-none d-md-block">
+                    <div className="col-6 d-none d-md-block">
                         <img src={`../imgs/startForm.png`} className="start_img" />
                     </div>
                 </div>

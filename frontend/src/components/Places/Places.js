@@ -2,42 +2,29 @@ import React, { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Place from './Place'
+import axios from 'axios';
 
 class Places extends Component {
-    static defaultProps = {
-        cities: [
-            { id: `f26f6806-77f2-4da7-b8c5-b10c022ef66a`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-            { id: `698a45a3-b224-4331-9baf-609dad988576`, heart: `far fa-heart`, star: `stars fas fa-star`, description: 'Entire serviced apartment', add: 'Cairo - Almokatam', price: '$18 / night' },
-        ]
+    state = {
+        places: []
+    }
+    componentDidMount() {
+        axios.get('http://localhost:8000/api/v1/places').then((res) => {
+            console.log('loaded places');
+            this.setState({places: res.data.data});
+        }).catch((err) => {
+            console.log('error');
+            console.log(err.response.data);
+        })
     }
     render() {
+        console.log(this.state.places)
+        console.log(typeof this.state.places)
         return (
             <Container className='mb-3' id="Places">
                 <Row>
-                    {this.props.cities.map((c, ele) => (
-                        <Place key={ele} id={c.id} desc={c.description} add={c.add} price={c.price} star={c.star} heart={c.heart} />
+                    {this.state.places.map((place, i) => (
+                        <Place key={place._id} place={place} />
 
                     ))}
                 </Row>

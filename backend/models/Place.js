@@ -81,7 +81,8 @@ const placeSchema = mongoose.Schema({
         shampoo: { type: Boolean, default: false },
         ac: { type: Boolean, default: false },
         fireplace: { type: Boolean, default: false }
-    }
+    },
+    images: [String]
 }, {
     timestamps: true
 })

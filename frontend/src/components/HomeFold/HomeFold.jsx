@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import './HomeFold.scss'
 import { ReactComponent as Logo } from '../../images/logo.svg'
@@ -7,9 +7,10 @@ import { ReactComponent as ListIcon } from '../../images/icon-list.svg'
 import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
-// import SearchBar from './SearchBar'
+import { AppContext } from '../../contexts/AppContext'
 
 const HomeFold = () => {
+    const { logged, logout } = useContext(AppContext)
     const [showLogin, setShowLogin] = useState(false)
     const handleCloseLogin = () => setShowLogin(false)
     const handleShowLogin = () => setShowLogin(true)
@@ -17,6 +18,8 @@ const HomeFold = () => {
     const [showSignUp, setShowSignUp] = useState(false)
     const handleCloseSignUp = () => setShowSignUp(false)
     const handleShowSignUp = () => setShowSignUp(true)
+
+    const handleLogOut = () => logout()
 
     return (
         <>
@@ -33,13 +36,13 @@ const HomeFold = () => {
                             </div>
                             <div className="col-auto">
                                 <nav className="h-header__nav">
-                                    <div className="h-header__become-host">
+                                    {/* <div className="h-header__become-host">
                                         <Link to="/host">Become a host</Link>
-                                    </div>
+                                    </div> */}
                                     <div className="h-header__actions">
                                         <Dropdown>
                                             <Dropdown.Toggle
-                                                menuAlign="right"
+                                                menualign="right"
                                                 id="dropdown-basic"
                                                 className="actions-btn">
                                                 <span className="icon-list">
@@ -53,23 +56,34 @@ const HomeFold = () => {
                                             <Dropdown.Menu
                                                 align="right"
                                                 className="h-header__actions-menu">
-                                                <Button
-                                                    variant="link"
-                                                    onClick={handleShowSignUp}
-                                                    className="signUp">
-                                                    Sign Up
-                                                </Button>
-                                                <Button
-                                                    variant="link"
-                                                    onClick={handleShowLogin}
-                                                    className="login">
-                                                    Login
-                                                </Button>
-                                                <Dropdown.Divider />
-                                                <Link to="/host">Host your Home</Link>
-                                                <Link to="/dashboard">Dashboard</Link>
-                                                <Link to="/admin">Admin</Link>
-                                                <Link to="/help">Help</Link>
+                                                {logged ? null : (
+                                                    <>
+                                                        <Button
+                                                            variant="link"
+                                                            onClick={handleShowSignUp}
+                                                            className="signUp">
+                                                            Sign Up
+                                                        </Button>
+                                                        <Button
+                                                            variant="link"
+                                                            onClick={handleShowLogin}
+                                                            className="login">
+                                                            Login
+                                                        </Button>
+                                                    </>
+                                                )}
+                                                {logged ? (
+                                                    <>
+                                                        <Link to="/host">Host your Home</Link>
+                                                        <Link to="/dashboard">Dashboard</Link>
+                                                        <Button
+                                                            variant="link"
+                                                            onClick={handleLogOut}
+                                                            className="logout">
+                                                            Log out
+                                                        </Button>
+                                                    </>
+                                                ) : null}
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
