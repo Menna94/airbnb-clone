@@ -1,13 +1,17 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 //import { Link } from 'react-router-dom'
-import PlaceInfo from '../components/placeInfo/PlaceInfo';
+import PlaceInfo from '../components/placeInfo/PlaceInfo'
+import Header from '../components/Header/Header'
 
 const PlaceInfoScreen = ({ match }) => {
     return (
-        <Container>
-            <PlaceInfo match={match}/>
-        </Container>
+        <>
+            <Header headerInner={true} />
+            <Container>
+                <PlaceInfo match={match} />
+            </Container>
+        </>
     )
 }
 

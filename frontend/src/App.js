@@ -1,15 +1,15 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen'
-import HostScreen from './screens/HostScreen';
-import SearchPage from './screens/SearchPage';
-import PlaceInfoScreen from './screens/placeInfoScreen';
-import Propertieslist from './components/Properties/Propertieslist';
-import { AppProdivder } from './contexts/AppContext';
-import  AppWrapper  from './AppWrapper.js';
+import HostScreen from './screens/HostScreen'
+import SearchPage from './screens/SearchPage'
+import PlaceInfoScreen from './screens/placeInfoScreen'
+import Propertieslist from './components/Properties/Propertieslist'
+import { AppProdivder } from './contexts/AppContext'
+import AppWrapper from './AppWrapper.js'
 
 function App() {
-        return (
+    return (
         <AppProdivder>
             <AppWrapper>
                 <Router>
