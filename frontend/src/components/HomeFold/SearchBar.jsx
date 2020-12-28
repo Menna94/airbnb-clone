@@ -40,6 +40,7 @@ const SearchBar = (props) => {
                             placeholderText="Add dates"
                             autoComplete="off"
                             isClearable
+                            
                         />
                     </div>
                     <div className="searchBar__item searchBar__item--checkOut">

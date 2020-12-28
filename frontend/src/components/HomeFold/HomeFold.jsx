@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../Header/Header'
 import './HomeFold.scss'
 import SearchBar from './SearchBar'
+import {withRouter} from 'react-router-dom';
 
 const HomeFold = () => {
     return (
