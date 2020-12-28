@@ -1,11 +1,13 @@
 import React from 'react'
+import Header from '../components/Header/Header'
 import Propertieslist from './../components/Properties/Propertieslist'
-Propertieslist
+
 const DashboardScreen = () => {
     return (
-        <React.Fragment>
+        <>
+            <Header headerInner={true} />
             <Propertieslist />
-        </React.Fragment>
+        </>
     )
 }
 
