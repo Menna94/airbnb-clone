@@ -42,14 +42,14 @@ export const Address = ({ formData, setForm, navigation }) => {
                         <h6>Where’s your place located?</h6>
                         <form onSubmit = {onSubmit}>
                             <div className="form-group">
-                            <input type="text"  class="price" id="address" aria-describedby="address" min={5} max={100}  placeholder="Proberty address" name="address" value={address}   onChange={setForm}  />
+                            <input type="text"  className="price" id="address" aria-describedby="address" min={5} max={100}  placeholder="Proberty address" name="address" value={address}   onChange={setForm}  />
                             </div>
                             {Object.keys(addressErr).map((key)=>{
                                 return <div style={{color:"red"}}>{addressErr[key]}</div>
                             })}
                             <br/>
                             <div className="d-flex justify-content-between">
-                            <button class="btn btn_start"  type="submit">continue</button>
+                            <button className="btn btn_start"  type="submit">continue</button>
                             </div>
                         </form>
                     </div>

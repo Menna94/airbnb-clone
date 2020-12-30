@@ -29,25 +29,25 @@ export const Guests = ({ formData, setForm, navigation }) => {
                             comfortably.
                         </h6>
                             <form onSubmit = {onSubmit}>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label >How many guests can guests use?</label>
                                     <input type="number" class="price" id="guests" aria-describedby="guests" placeholder="guests" name="guests" min="1"  max="100" required value={guests} onChange={setForm} />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label >How many beds can guests use?</label>
                                     <input type="number" class="price" id="bedrooms" aria-describedby="bedrooms" placeholder="bedrooms" name="bedrooms"   min="1"  max="100" required  value={bedrooms} onChange={setForm} />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label >How many bedrooms can guests use?</label>
                                     <input type="number" class="price" id="beds" aria-describedby="beds" placeholder="beds" name="beds"  min="1"  max="100" required  value={beds} onChange={setForm} />
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label >How many bathrooms can guests use?</label>
                                     <input type="number" class="price" id="bathrooms" aria-describedby="bathrooms" placeholder="bathrooms" name="bathrooms"  min="1"  max="100" required  value={bathrooms} onChange={setForm} />
                                 </div>
                                 <div className="d-flex justify-content-between">
                                     <p className="myLink" onClick={() => navigation.previous()}><b><a target="_blank" className="back_a">Back</a></b></p>
-                                    <button class="btn btn_start" type="submit">next</button>
+                                    <button className="btn btn_start" type="submit">next</button>
                                 </div>
                         </form>
                     </div>

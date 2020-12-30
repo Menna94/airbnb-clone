@@ -47,7 +47,7 @@ export const Description = ({ formData, setForm, navigation }) => {
                         </p>
                         <form onSubmit = {onSubmit}>
                             <div className="form-group">
-                            <textarea class="User_Text" class="w-100" id="User_Text" cols="30" rows="10" name="description"   value={description} onChange={setForm}></textarea>
+                            <textarea className="User_Text" class="w-100" id="User_Text" cols="30" rows="10" name="description"   value={description} onChange={setForm}></textarea>
                             </div>
                             {Object.keys(descriptionErr).map((key)=>{
                                 return <div style={{color:"red"}}>{descriptionErr[key]}</div>
@@ -61,7 +61,7 @@ export const Description = ({ formData, setForm, navigation }) => {
                                         </a>
                                     </b>
                                 </p>
-                                <button class="btn btn_start" class="btn btn_start" type="submit">next</button>
+                                <button className="btn btn_start" className="btn btn_start" type="submit">next</button>
                             </div>
                         </form>
                     </div>

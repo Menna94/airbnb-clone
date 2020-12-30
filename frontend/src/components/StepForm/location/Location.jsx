@@ -29,15 +29,15 @@ export const Location = ({ formData, setForm, navigation }) => {
                         <form onSubmit = {onSubmit}>
                             <div className="form-group">
                                 <label>country</label>
-                                <input type="text"  class="price" id="country" aria-describedby="country" placeholder="country"  name="country"  minlength="3" maxlength="50" required value={country}  onChange={setForm}/>
+                                <input type="text"  class="price" id="country" aria-describedby="country" placeholder="country"  name="country"  minLength="3" maxLength="50" required value={country}  onChange={setForm}/>
                             </div>
                             <div className="form-group">
                                 <label>city</label>
-                                <input type="text"  class="price" id="city" aria-describedby="city"   placeholder="city" name="city" minlength="3" maxlength="50" required value={city}  onChange={setForm}/>
+                                <input type="text"  class="price" id="city" aria-describedby="city"   placeholder="city" name="city" minLength="3" maxLength="50" required value={city}  onChange={setForm}/>
                             </div>
                             <div className="form-group">
                                 <label>street</label>
-                                <input type="text"  class="price" id="street" aria-describedby="street"   placeholder="street" name="street" minlength="3" maxlength="50" required value={street}  onChange={setForm}/>
+                                <input type="text"  class="price" id="street" aria-describedby="street"   placeholder="street" name="street" minLength="3" maxLength="50" required value={street}  onChange={setForm}/>
                             </div>
                             <div className="d-flex justify-content-between">
                                 <p className="myLink" onClick={() => navigation.previous()}>

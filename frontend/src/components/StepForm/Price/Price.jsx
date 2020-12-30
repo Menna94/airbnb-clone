@@ -36,7 +36,7 @@ export const Price = ({ formData, setForm, navigation }) => {
                             </div>
                             <div className="form-group">
                                 <label>title</label>
-                                <input type="text"  class="price" id="title" aria-describedby="title"   placeholder="title" name="title" minlength="5" maxlength="100" required value={price} value={title}  onChange={setForm}/>
+                                <input type="text"  class="price" id="title" aria-describedby="title"   placeholder="title" name="title" minLength="5" maxLength="100" required value={price} value={title}  onChange={setForm}/>
                             </div>
                             <div className="d-flex justify-content-between">
                                 <p className="myLink" onClick={() => navigation.previous()}>
