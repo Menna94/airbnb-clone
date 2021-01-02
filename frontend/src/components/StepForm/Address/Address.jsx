@@ -44,8 +44,8 @@ export const Address = ({ formData, setForm, navigation }) => {
                             <div className="form-group">
                             <input type="text"  className="price" id="address" aria-describedby="address" min={5} max={100}  placeholder="Proberty address" name="address" value={address}   onChange={setForm}  />
                             </div>
-                            {Object.keys(addressErr).map((key)=>{
-                                return <div style={{color:"red"}}>{addressErr[key]}</div>
+                            {Object.keys(addressErr).map((key, i)=>{
+                                return <div key={i}  style={{color:"red"}}>{addressErr[key]}</div>
                             })}
                             <br/>
                             <div className="d-flex justify-content-between">
