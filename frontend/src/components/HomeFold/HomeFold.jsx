@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './HomeFold.scss'
 import { ReactComponent as Logo } from '../../images/logo.svg'
@@ -8,15 +8,9 @@ import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal'
 
+
 const HomeFold = () => {
-    const [showLogin, setShowLogin] = useState(false)
-    const handleCloseLogin = () => setShowLogin(false)
-    const handleShowLogin = () => setShowLogin(true)
-
-    const [showSignUp, setShowSignUp] = useState(false)
-    const handleCloseSignUp = () => setShowSignUp(false)
-    const handleShowSignUp = () => setShowSignUp(true)
-
+   
     return (
         <>
             <div className="h-fold">

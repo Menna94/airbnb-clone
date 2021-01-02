@@ -1,5 +1,5 @@
 
-import { React, useState } from 'react';
+import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 
@@ -20,8 +20,8 @@ function Confirmmodal(props) {
         <h4>Are you sure you want to delete this</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.delete}>Yes</Button>
-        <Button onClick={props.onHide} className="btn btn-danger">No</Button>
+        <Button onClick={props.delete} className="btn btn-danger">Yes</Button>
+        <Button onClick={props.onHide} className="btn btn-info">No</Button>
       </Modal.Footer>
     </Modal>
     );
