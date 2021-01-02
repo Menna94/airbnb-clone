@@ -7,6 +7,8 @@ import PlaceInfoScreen from './screens/placeInfoScreen'
 import { AppProdivder } from './contexts/AppContext'
 import AppWrapper from './AppWrapper.js'
 import DashboardScreen from './screens/DashboardScreen'
+import ReservationScreen from './screens/ReservationScreen.js'
+
 
 function App() {
     return (
@@ -19,6 +21,8 @@ function App() {
                         <Route path="/search/:id" component={PlaceInfoScreen} exact />
                         <Route path="/host" component={HostScreen} exact />
                         <Route path="/dashboard" component={DashboardScreen} exact />
+                        <Route path="/reservation" component={ReservationScreen} exact />
+
                     </Switch>
                 </Router>
             </AppWrapper>
