@@ -25,13 +25,12 @@ exports.protect = asyncHandler(async (req, res, next) => {
 });
 
 
-exports.authorize = (...roles) => {
-    return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
-            return next(new ErrorResponse(`premission denied`, 403))
-        }
-        next();
+exports.authorizeAdmin = (req, res, next) => {
+    if (!req.user.isAdmin) {
+        return next(new ErrorResponse(`premission denied`, 403))
     }
+    next();
 }
+
 
 

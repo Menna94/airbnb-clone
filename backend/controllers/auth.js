@@ -13,6 +13,7 @@ const sendEmail = require('../utils/sendEmail');
 // @route POST /api/v1/auth/register
 // @access public
 exports.register = asyncHandler(async (req, res, next) => {
+    console.log("reached here 1")
     const { email, firstName, lastName, password } = req.body;
     const user = await User.create({
         firstName,
@@ -21,8 +22,11 @@ exports.register = asyncHandler(async (req, res, next) => {
         password
     });
 
+
+    console.log("reached here 2")
     // create token
     sendTokenResponse(user, 201, res);
+    console.log("reached here 3")
 });
 
 
@@ -189,22 +193,19 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 const sendTokenResponse = (user, statusCode, res) => {
     const token = user.getSignedJwtToken();
 
+    console.log("reached here 5")
     // cookie expiration date in days
     const expirationDate = new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000);
 
-    const options = {
-        expires: expirationDate,
-        httpOnly: true
-    }
+    console.log("reached here 6")
 
-    // only set secure flag to true in production
-    if (process.env.NODE_ENV === 'production') {
-        options.secure = true;
-    }
 
-    res.status(statusCode).cookie('token', token, options).json({
+    console.log("reached here 6")
+    res.status(statusCode).json({
         success: true,
-        token
+        token,
+        user,
+        help:console.log("success")
     })
 }
 

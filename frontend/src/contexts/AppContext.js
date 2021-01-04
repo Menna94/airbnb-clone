@@ -3,36 +3,38 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export function AppProdivder(props) {
+    console.log('context');
     const [logged, setLogged] = useState(false);
     const [token, setToken] = useState('');
-    function login(token){
-        console.log('aaa')
+    const [user, setUser] = useState('');
+    function login(token, user) {
+        console.log('we are loggin in')
+        console.log(token, user);
         setLogged(true);
         setToken(token);
-        // localStorage.setItem('logged', true);
-        console.log(99999999);
+        setUser(user);
         localStorage.setItem('token', token);
-        console.log(123123123123);
-        const mytok = localStorage.getItem('token');
-        console.log(12312, mytok)
+        localStorage.setItem('user', JSON.stringify(user));
     }
-    function logout(){
+    function logout() {
         setLogged(false);
         setToken('');
+        setUser('');
+        localStorage.removeItem('user');
         localStorage.removeItem('token');
     }
-    function autoLogIn(){
+    function autoLogIn() {
         console.log('we are doibf auto login');
         const token = localStorage.getItem('token');
-        console.log(180, token)
-        setToken(token);
-        if(token){
-            login(token)
+        const user = JSON.parse(localStorage.getItem('user'))
+        // console.log(180, token)
+        if (token && user) {
+            login(token, user)
         }
     }
 
     return (
-        <AppContext.Provider value={{ logged, login, logout, autoLogIn, token }}>
+        <AppContext.Provider value={{ logged, login, logout, autoLogIn, token, user }}>
             {props.children}
         </AppContext.Provider>
     );

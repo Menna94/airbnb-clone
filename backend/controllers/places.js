@@ -9,21 +9,28 @@ const asyncHandler = require("../middlewares/async");
 // error response
 const ErrorResponse = require("../utils/errorResponse");
 
+const dotenv = require('dotenv');
+dotenv.config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const uuid = require("uuid");
+
 // @desc All places
 // @route GET api/v1/places
 // access-> public
 const getPlaces = asyncHandler(async (req, res, next) => {
     const { city, startDate, endDate, guests, beds, bedrooms, bathrooms, minPrice, maxPrice } = req.body;
+    console.log(123, startDate, endDate, guests, city);
     let places;
     console.log(9898, startDate, endDate);
-    console.log(req.body);
-    if (startDate) {
+    console.log(req.user);
+    if (startDate && endDate && guests && city) {
         places = await Place.find({
+            approved: true,
             $nor: [
-                { "reserverations.start": { $lte: new Date(startDate) }, "reserverations.end": { $gte: new Date(startDate) } },
-                { "reserverations.start": { $lte: new Date(endDate) }, "reserverations.end": { $gte: new Date(endDate) } },
-                { "reserverations.start": { $gte: new Date(startDate) }, "reserverations.end": { $lte: new Date(endDate) } },
-                { "reserverations.start": { $lte: new Date(startDate) }, "reserverations.end": { $gte: new Date(endDate) } },
+                { "reserverations.startDate": { $lte: new Date(startDate) }, "reserverations.endDate": { $gte: new Date(startDate) } },
+                { "reserverations.startDate": { $lte: new Date(endDate) }, "reserverations.endDate": { $gte: new Date(endDate) } },
+                { "reserverations.startDate": { $gte: new Date(startDate) }, "reserverations.endDate": { $lte: new Date(endDate) } },
+                { "reserverations.startDate": { $lte: new Date(startDate) }, "reserverations.endDate": { $gte: new Date(endDate) } },
             ],
             "location.city": city,
             guests: { $gte: guests || 1 },
@@ -33,13 +40,17 @@ const getPlaces = asyncHandler(async (req, res, next) => {
             price: { $gte: minPrice || 1 },
             $and: [{ price: { $gt: minPrice || 0 } }, { price: { $lt: maxPrice || 100000 } }],
         });
+        res.status(200).send({
+            success: true,
+            data: places,
+        });
     } else {
-        places = await Place.find();
+        res.status(400).send({
+            success: false,
+            message: 'please add search search params'
+        });
     }
-    res.status(200).send({
-        success: true,
-        data: places,
-    });
+
 });
 
 // @desc get single place
@@ -47,7 +58,10 @@ const getPlaces = asyncHandler(async (req, res, next) => {
 // access-> public
 const getPlace = asyncHandler(async (req, res, next) => {
     const placeId = req.params.placeId;
-    const place = await Place.findById(placeId);
+    const place = await Place.findOne({
+        _id: placeId,
+        approved: true
+    }).populate('owner');
     if (!place) {
         return next(new ErrorResponse("Resource Not Found", 404));
     }
@@ -143,9 +157,51 @@ const updatePlace = asyncHandler(async (req, res, next) => {
     if (!place) {
         return next(new ErrorResponse("Resource Not Found", 404));
     }
+
     if (place.owner.toString() !== req.user.id && !req.user.isAdmin) {
         return next(new ErrorResponse("Not Authorized", 401));
     }
+
+    if (req.files) {
+        const { file1, file2, file3, file4, file5 } = req.files;
+
+        // check for existance of 5 files
+        if (!file1 || !file2 || !file3 || !file4 || !file5) {
+            return next(new ErrorResponse("please upload valid 5 photos", 400));
+        }
+
+        const files = [file1, file2, file3, file4, file5];
+        const images = [];
+
+        for (let i = 0; i < files.length; i++) {
+            let file = files[i];
+            // validate image type
+            if (!file.mimetype.startsWith("image")) {
+                return next(new ErrorResponse("please upload valid 5 photos", 400));
+            }
+
+            // Check filesize
+            if (file.size > process.env.MAX_FILE_UPLOAD) {
+                return next(new ErrorResponse(`Please upload photo less than ${process.env.MAX_FILE_UPLOAD}`, 400));
+            }
+
+            // Create custom filename
+            file.name = `photo_${i}_${Date.now()}${path.parse(file.name).ext}`;
+            images.push(file.name);
+            file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+                if (err) {
+                    console.error("problem with file upload", err);
+                    return next(new ErrorResponse(`Problem with file upload`, 500));
+                }
+            });
+        }
+        req.body.images = images;
+    }
+
+    req.body.location = JSON.parse(req.body.location);
+    req.body.aminities = JSON.parse(req.body.aminities);
+
+
     place = await Place.findByIdAndUpdate(placeId, req.body, {
         runValidators: true,
         new: true,
@@ -175,43 +231,118 @@ const deletePlace = asyncHandler(async (req, res, next) => {
     });
 });
 
-//------------------------> UPDATE <------------------------//
-//Photos, short description, title
-//------------------------> UPDATE <------------------------//
-//-> PUT/place/ update
-//-> access-> private
-const updatePlaceDetails = async (req, res, next) => {
-    const { placePhotos, placeDetails, placeDescription } = req.body;
-    const placeID = req.params.pid;
-
-    let updatedDetails;
-    //make changes
-    try {
-        updatedDetils = await Place.findById(placeID);
-    } catch (err) {
-        const error = new airbnbError("Something went wrong, Couldn't Update Aminities!", 500);
-        return next(error);
+// @desc rent place, any user can rent place
+// @route POST api/v1/places/rent
+// @access private
+const rentPlace = asyncHandler(async (req, res, next) => {
+    console.log("reacged retn plac")
+    const { paymentToken, rentDetails } = req.body;
+    const { _id, startDate, endDate } = rentDetails;
+    console.log(new Date(startDate), new Date(endDate));
+    const place = await Place.findOne({
+        _id,
+        $nor: [
+            { "reserverations.startDate": { $lte: new Date(startDate) }, "reserverations.endDate": { $gte: new Date(startDate) } },
+            { "reserverations.startDate": { $lte: new Date(endDate) }, "reserverations.endDate": { $gte: new Date(endDate) } },
+            { "reserverations.startDate": { $gte: new Date(startDate) }, "reserverations.endDate": { $lte: new Date(endDate) } },
+            { "reserverations.startDate": { $lte: new Date(startDate) }, "reserverations.endDate": { $gte: new Date(endDate) } },
+        ]
+    })
+    if (!place) {
+        console.log('place not found');
+        return res.status(400).json({
+            success: false,
+            message: 'failed to rent place at specific time'
+        })
     }
-    updatedDetails.placePhotos = placePhotos;
-    updatedDetails.placeDetails = placeDetails;
-    updatedDetails.placeDescription = placeDescription;
+    console.log(123, place);
+    const ms = new Date(endDate).getTime() - new Date(startDate).getTime();
+    const days = ms / (24 * 60 * 60 * 1000);
+    const amount = days * place.price * 100
+    console.log("amount", typeof amount, amount);
+    const idempotencyKey = uuid.v4();
+    stripe.charges.create({
+        amount,
+        currency: "usd",
+        description: `renting ${place.title}`,
+        source: paymentToken.id
+    }, {
+        idempotencyKey
+    }, function (err, charge) {
+        if (err) {
+            console.log("failed");
+            console.log(err);
+            return res.status(400).json({
+                success: false,
+                message: 'something went wrong'
+            })
+        } else {
+            console.log("success")
+            place.reserverations.push({
+                startDate,
+                endDate
+            })
+            place.save(() => {
+                return res.status(200).json({
+                    success: true,
+                    message: 'rented successfully'
+                });
+            });
+        }
+    });
+});
 
-    //save changes to DB
-    try {
-        await updatedDetils.save();
-    } catch (err) {
-        const error = new airbnbError("Something went wrong, Couldn't save changes!", 500);
-        return next(error);
-    }
 
-    res.status(200).json({ place: updatedDetils.toObject({ getters: true }) });
-};
+// @desc get unapproved places, only admins can get these places
+// @route GET api/v1/places/unapproved
+// @access private
+const getUnapprovedPlaces = asyncHandler(async (req, res, next) => {
+    const places = await Place.find({ approved: false, rejected:{$ne: true} })
+    res.status(200).json({
+        success: true,
+        count: places.length,
+        data: places
+    })
+});
+
+
+// @desc approve place, only admins approve places
+// @route PUT api/v1/places/approve
+// @access private
+const approvePlace = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+    const place = await Place.findOne({ approved: false, _id: req.body._id })
+    place.approved = true;
+    await place.save();
+    res.status(200).json({
+        success: true
+    })
+});
+
+
+// @desc reject place, only admins reject places
+// @route PUT api/v1/places/reject
+// @access private
+const rejectPlace = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+    const place = await Place.findOne({ approved: false, _id: req.body._id })
+    place.rejected = true;
+    await place.save();
+    res.status(200).json({
+        success: true
+    })
+});
+
 
 module.exports = {
+    rentPlace,
     getPlace,
     getPlaces,
     createPlace,
     updatePlace,
     deletePlace,
     getUserPlaces,
+    getUnapprovedPlaces,
+    approvePlace,
+    rejectPlace
 };

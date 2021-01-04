@@ -11,6 +11,10 @@ const placeSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    rejected: {
+        type: Boolean,
+        default: false
+    },
     title: {
         type: String,
         required: [true, 'title is required'],

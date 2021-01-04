@@ -74,9 +74,10 @@ app.use(hpp());
 app.use('/api/v1/places', placeRoutes);
 app.use('/api/v1/auth', authRoutes);
 
+
 // PayPal Config
 app.get('/api/config/paypal', (req, res) =>
-  res.send(process.env.PAYPAL_CLIENT_ID)
+    res.send(process.env.PAYPAL_CLIENT_ID)
 )
 
 // error handler
@@ -89,9 +90,11 @@ const server = app.listen(PORT, console.log(`server is running in ${process.env.
 
 // handle unhandled promise rejection
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.message}`.red.underline);
+    console.log(`Error: ${err.message}`);
     server.close(() => {
         process.exit(1);
     });
 })
+
+
 

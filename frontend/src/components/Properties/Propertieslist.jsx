@@ -23,19 +23,18 @@ export default function Propertieslist(props) {
     }, [token])
 
     let handleDelete = (property) => {
-        // clone
-        let properties = [...properties];
         // Edit
-        properties = properties.filter((item) => item._id !== property._id)
-        // setState
-        this.setState({ properties });
-
+        axios.delete(`http://localhost:8000/api/v1/places/${property._id}`, { headers: { authorization: `Bearer ${token}` } }).then((res) => {
+            let newProperties = properties.filter((item) => {
+                return item._id !== property._id
+            })
+            // setState
+            setProperities(newProperties)
+        }).catch((err) => {
+            console.log('error');
+            console.log(err.response.data);
+        })
     }
-
-    let handleEdit = (property) => {
-        alert(property._id)
-    }
-
 
     return (
         <React.Fragment>
@@ -58,7 +57,6 @@ export default function Propertieslist(props) {
                                 key={item._id}
                                 data={item}
                                 onDelete={handleDelete}
-                                onEdit={handleEdit}
                             />
                         )}
                     </tbody>

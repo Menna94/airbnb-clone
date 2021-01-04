@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 //import { Link } from 'react-router-dom'
 import PlaceInfo from '../components/placeInfo/PlaceInfo'
 import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 
 const PlaceInfoScreen = ({ match }) => {
     return (
@@ -11,6 +12,7 @@ const PlaceInfoScreen = ({ match }) => {
             <Container>
                 <PlaceInfo match={match} />
             </Container>
+            <Footer />
         </>
     )
 }

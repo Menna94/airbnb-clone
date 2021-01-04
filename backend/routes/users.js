@@ -8,12 +8,12 @@ const { getUsers, getSingleUser, updateUser, deleteUser, createUser } = require(
 const User = require('../models/User');
 
 // middlewares
-const { protect, authorize } = require('../middlewares/auth');
+const { protect, authorizeAdmin } = require('../middlewares/auth');
 const advancedResults = require('../middlewares/advancedResults');
 
 
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorizeAdmin);
 
 router.route('/')
     .get(advancedResults(User), getUsers)

@@ -2,15 +2,26 @@ import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import './SearchBar.scss'
 import 'react-datepicker/dist/react-datepicker.css'
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import {useHistory } from 'react-router-dom';
 
 const SearchBar = (props) => {
-    const [startDate, setStartDate] = useState()
-    const [endDate, setEndDate] = useState()
+    const history = useHistory();
+
+    const [location, setLocation] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [guests, setGuests] = useState('1');
 
     const handleSearchSubmit = (e) => {
-        e.preventDefault()
-        props.history.push('/search')
+        e.preventDefault();
+        console.log(location, startDate, endDate, guests);
+        console.log(props);
+        if(!location || !startDate || !endDate ||!guests){
+            alert('please enter location and dates and guests');
+            return;
+        }
+        history.push(`/search?city=${location}&guests=${guests}&startDate=${startDate}&endDate=${endDate}`, {city: location, startDate, endDate, guests});
     }
 
     return (
@@ -25,6 +36,7 @@ const SearchBar = (props) => {
                             id="location"
                             placeholder="where are you going?"
                             autoComplete="off"
+                            value={location} onChange={(e) => setLocation(e.target.value)}
                         />
                     </div>
                     <div className="searchBar__item searchBar__item--checkIn">
@@ -32,7 +44,7 @@ const SearchBar = (props) => {
                         <DatePicker
                             id="startDate"
                             selected={startDate}
-                            onChange={(date) => setStartDate(date)}
+                            onChange={(date) => {console.log("staaaaaaaart", date);setStartDate(date)}}
                             selectsStart
                             startDate={startDate}
                             endDate={endDate}
@@ -41,6 +53,7 @@ const SearchBar = (props) => {
                             autoComplete="off"
                             isClearable
                             
+
                         />
                     </div>
                     <div className="searchBar__item searchBar__item--checkOut">
@@ -64,9 +77,10 @@ const SearchBar = (props) => {
                             type="number"
                             id="guests"
                             name="guests"
-                            min={0}
-                            defaultValue={1}
+                            min={1}
+                            defaultValue={guests}
                             autoComplete="off"
+                            onChange={(e) => setGuests(e.target.value)}
                         />
                     </div>
                     <button type="submit" className="searchBar__submit">

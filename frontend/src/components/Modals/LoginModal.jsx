@@ -15,11 +15,11 @@ const LoginModal = (props) => {
         axios.post(`http://localhost:8000/api/v1/auth/login`, {email, password}).then((res) => {
             console.log('place loaded');
             console.log(res.data);
-            login(res.data.token);
+            login(res.data.token, res.data.user);
             props.onHide();
         }).catch((err) => {
             console.log('error');
-            console.log(err.response.data);
+            console.log(err.response);
             setWrongCredentials(true);
         })
     }

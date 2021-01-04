@@ -1,43 +1,64 @@
 import React, { Component } from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Container, Row, Spinner, Button, Modal } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Place from './Place'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
 
 class Places extends Component {
-    constructor(props){
-        super(props);
-    }
     state = {
-        places: []
+        places: [],
+        loading: true,
+        showModal: false
     }
     componentDidMount() {
-        console.log(this.props.location.state);
-        
-        axios.post(`http://localhost:8000/api/v1/places`, this.props.location.state).then((res) => {
-            // setProperities(res.data.data);
-            console.log(res.data);
+        let searchParams;
+        try {
+            const search = this.props.location.search.slice(1);
+            searchParams = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+        } catch (ex) {
+            this.props.history.push('/')
+        }
+        axios.post(`http://localhost:8000/api/v1/places`, searchParams).then((res) => {
             this.setState({
-                places: res.data.data
+                places: res.data.data,
+                loading: false
             })
         }).catch((err) => {
-            console.log('error');
-            console.log(err.response);
+            this.props.history.push('/')
         })
     }
+    handleClose = () => this.setState({ showModal: false });
+    handleShow = () => this.setState({ showModal: true });
     render() {
-        console.log(this.state.places)
-        console.log(typeof this.state.places)
         return (
             <Container className='mb-3' id="Places">
-                <Row>
-                    {this.state.places.map((place, i) => (
-                        <Place key={place._id} place={place} />
+                <Modal show={this.state.showModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Close
+          </Button>
+                        <Button variant="primary" onClick={this.handleClose}>
+                            Save Changes
+          </Button>
+                    </Modal.Footer>
+                </Modal>
 
-                    ))}
-                </Row>
-            </Container>
+
+                {this.state.places.length > 0 ? <Row>{this.state.places.map((place, i) => (
+                    <Place key={place._id} place={place} searchQuery={this.props.location.search} />
+                ))}</Row> : this.state.loading ? null : <h2 className="text-center py-5">No Places Found</h2>}
+
+                {
+                    this.state.loading ? <div className="text-center py-5">
+                        <Spinner animation="border" style={{ height: '3rem', width: '3rem' }} />
+                    </div> : null
+                }
+            </Container >
         )
     }
 }

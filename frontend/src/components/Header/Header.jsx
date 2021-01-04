@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../images/logo.svg'
 import { ReactComponent as UserIcon } from '../../images/header-user-icon.svg'
 import { ReactComponent as ListIcon } from '../../images/icon-list.svg'
-import { Dropdown, Button, Modal, Form } from 'react-bootstrap'
+import { Dropdown, Button } from 'react-bootstrap'
 import LoginModal from '../Modals/LoginModal'
 import SignUpModal from '../Modals/SignUpModal'
 import { AppContext } from '../../contexts/AppContext'
 import './Header.scss'
+import { useHistory } from 'react-router-dom';
 
 const Header = (props) => {
-    const { logged, logout } = useContext(AppContext)
+    const { logged, logout, user } = useContext(AppContext)
     const [showLogin, setShowLogin] = useState(false)
     const handleCloseLogin = () => setShowLogin(false)
     const handleShowLogin = () => setShowLogin(true)
@@ -19,7 +20,12 @@ const Header = (props) => {
     const handleCloseSignUp = () => setShowSignUp(false)
     const handleShowSignUp = () => setShowSignUp(true)
 
-    const handleLogOut = () => logout()
+    const history = useHistory();
+
+    const handleLogOut = () => {
+        logout()
+        history.push('/')
+    }
 
     return (
         <>
@@ -75,6 +81,7 @@ const Header = (props) => {
                                                 <>
                                                     <Link to="/host">Host your Home</Link>
                                                     <Link to="/dashboard">Dashboard</Link>
+                                                    {user.isAdmin ? <Link to="/admin">Admin Dashboard</Link>: null}
                                                     <Button
                                                         variant="link"
                                                         onClick={handleLogOut}

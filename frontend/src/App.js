@@ -7,6 +7,7 @@ import PlaceInfoScreen from './screens/placeInfoScreen'
 import { AppProdivder } from './contexts/AppContext'
 import AppWrapper from './AppWrapper.js'
 import DashboardScreen from './screens/DashboardScreen'
+import AdminDashboardScreen from './screens/AdminScreen'
 
 function App() {
     return (
@@ -15,10 +16,11 @@ function App() {
                 <Router>
                     <Switch>
                         <Route path="/" component={HomeScreen} exact />
-                        <Route path="/search" component={SearchPage} exact />
+                        <Route path="/search" render={(props) => <SearchPage {...props} />} exact />
                         <Route path="/search/:id" component={PlaceInfoScreen} exact />
                         <Route path="/host" component={HostScreen} exact />
                         <Route path="/dashboard" component={DashboardScreen} exact />
+                        <Route path="/admin" component={AdminDashboardScreen} exact />
                     </Switch>
                 </Router>
             </AppWrapper>

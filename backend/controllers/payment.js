@@ -41,7 +41,6 @@ const createOrder = asyncHandler(async(req,res)=>{
         const createdOrder = await newOrder.save();
         res.status(201).json(createdOrder);
     }
-
 })
 
 

@@ -20,7 +20,7 @@ function Confirmmodal(props) {
         <h4>Are you sure you want to delete this</h4>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.delete} className="btn btn-danger">Yes</Button>
+        <Button onClick={props.onDelete} className="btn btn-danger">Yes</Button>
         <Button onClick={props.onHide} className="btn btn-info">No</Button>
       </Modal.Footer>
     </Modal>

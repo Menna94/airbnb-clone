@@ -1,5 +1,4 @@
-import { Add, Update } from '@material-ui/icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, useState, useStep } from "react-hooks-helper";
 import { Address } from '../Address/Address';
 
@@ -11,17 +10,17 @@ import { Location } from './../location/Location';
 import { Guests } from './../Guests/Guests';
 import { Amenities } from '../Amenities/Amenities';
 
-const defaultData = {
-    address: 'dumb address',
-    type: 'room',
-    description: 'dump description',
+let defaultData = {
+    type: 'apartment',
+    address: '',
+    description: '',
     //price page
-    price: '181',
-    title: 'dummy title',
+    price: '',
+    title: '',
     //location page
-    country: 'dummy country',
-    city: 'dummy city',
-    street: 'dummy street',
+    country: '',
+    city: '',
+    street: '',
     //gusts page
     bedrooms: '3',
     beds: '6',
@@ -46,10 +45,39 @@ const steps = [
     { id: 'amenities' },
     { id: 'description' },
     { id: 'price' },
-    { id: 'uploadphoto' },
+    { id: 'uploadphoto' }
 ]
 
-export const MultyStepForm = () => {
+export const MultyStepForm = (props) => {
+    const { data, edit } = props;
+    useEffect(() => {
+        if (edit) {
+            defaultData.address = data.address;
+            defaultData.type = data.propertyType;
+            defaultData.description = data.description;
+            //price page
+            defaultData.price = data.price;
+            defaultData.title = data.title;
+            //location page
+            defaultData.country = data.location.country;
+            defaultData.city = data.location.city;
+            defaultData.street = data.location.street;
+            //gusts page
+            defaultData.bedrooms = data.bedrooms;
+            defaultData.beds = data.beds;
+            defaultData.bathrooms = data.bathrooms;
+            defaultData.guests = data.guests;
+            //amenities page
+            //uploadphotos page
+            defaultData.wifi = data.aminities.wifi;
+            defaultData.tv = data.aminities.tv;
+            defaultData.ac = data.aminities.ac;
+            defaultData.shampoo = data.aminities.shampoo;
+            defaultData.iron = data.aminities.iron;
+            defaultData.fireplace = data.aminities.fireplace;
+            defaultData.heat = data.aminities.heat;
+        }
+    });
     const [formData, setForm] = useForm(defaultData);
     const { step, navigation } = useStep({
         steps,
@@ -58,26 +86,26 @@ export const MultyStepForm = () => {
     console.log("current form data ", formData);
 
 
-    const props = { formData, setForm, navigation }
+    const childProps = { formData, setForm, navigation }
 
 
     switch (step.id) {
         case "address":
-            return <Address {...props} />
+            return <Address {...childProps} />
         case "type":
-            return <PropertyType {...props} />
+            return <PropertyType {...childProps} />
         case "description":
-            return <Description {...props} />
+            return <Description {...childProps} />
         case "price":
-            return <Price {...props} />
+            return <Price {...childProps} />
         case "location":
-            return <Location {...props} />
+            return <Location {...childProps} />
         case "guests":
-            return <Guests {...props} />
+            return <Guests {...childProps} />
         case "uploadphoto":
-            return <UploadPhotos {...props} />
+            return <UploadPhotos edit={edit} data={data} {...childProps} />
         case "amenities":
-            return <Amenities {...props} />
+            return <Amenities {...childProps} />
     }
     console.log(step);
     return (

@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import {AppContext} from '../../../contexts/AppContext';
+import { AppContext } from '../../../contexts/AppContext';
 
 
 const thumbsContainer = {
@@ -38,24 +38,46 @@ const img = {
     height: '100%'
 };
 
-export const UploadPhotos = ({ formData, setForm, navigation }) => {
+export const UploadPhotos = ({ formData, setForm, navigation, edit, data }) => {
+
+
+    console.log(formData, edit, data);
     const [files, setFiles] = useState([]);
-    const {token} = useContext(AppContext);
+    const [uploadedPhotos, setUploadedPhotos] = useState(false);
+    const { token } = useContext(AppContext);
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*',
         maxFiles: 5,
         multiple: true,
         onDrop: acceptedFiles => {
+            setUploadedPhotos(true);
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })));
         }
     });
 
+    useEffect(() => () => {
+        // Make sure to revoke the data uris to avoid memory leaks
+
+        files.forEach(file => {
+            console.log(151, file);
+            URL.revokeObjectURL(file.preview)
+        });
+    }, [files]);
+
+
     function handleSubmit() {
-        // if (files.length !== 5) {
-        //     return alert('please upload 5 photos');
-        // }
+        console.log(files);
+        if (edit) {
+            if (uploadedPhotos && files.length !== 5) {
+                alert('please upload 5 photos');
+            }
+        } else {
+            if (files.length !== 5) {
+                alert('please upload 5 photos');
+            }
+        }
         const aminities = {
             wifi: formData.wifi,
             tv: formData.tv,
@@ -70,13 +92,16 @@ export const UploadPhotos = ({ formData, setForm, navigation }) => {
             city: formData.city,
             street: formData.street
         }
+        console.log(formData);
 
         const myForm = new FormData();
-        myForm.append('file1', files[0]);
-        myForm.append('file2', files[1]);
-        myForm.append('file3', files[2]);
-        myForm.append('file4', files[3]);
-        myForm.append('file5', files[4]);
+        if ((edit && uploadedPhotos) || !edit) {
+            myForm.append('file1', files[0]);
+            myForm.append('file2', files[1]);
+            myForm.append('file3', files[2]);
+            myForm.append('file4', files[3]);
+            myForm.append('file5', files[4]);
+        }
 
         myForm.append('title', formData.title);
         myForm.append('description', formData.description);
@@ -92,15 +117,29 @@ export const UploadPhotos = ({ formData, setForm, navigation }) => {
         myForm.append('aminities', JSON.stringify(aminities));
         myForm.append('location', JSON.stringify(location));
 
-        axios.post('http://localhost:8000/api/v1/places/create', myForm, {
-            headers: {
-                authorization: `Bearer ${token}`
-            }
-        }).then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err.response.data);
-        })
+        if (edit) {
+
+            axios.put(`http://localhost:8000/api/v1/places/${data._id}`, myForm, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err.response.data);
+            })
+        } else {
+
+            axios.post('http://localhost:8000/api/v1/places/create', myForm, {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err.response.data);
+            })
+        }
     }
 
 
@@ -115,10 +154,21 @@ export const UploadPhotos = ({ formData, setForm, navigation }) => {
         </div>
     ));
 
-    useEffect(() => () => {
-        // Make sure to revoke the data uris to avoid memory leaks
-        files.forEach(file => URL.revokeObjectURL(file.preview));
-    }, [files]);
+    let oldPhotos;
+    if (edit) {
+        oldPhotos = data.images.map(url => {
+            console.log(`http://localhost:8000/uploads/${url}`);
+            return (<div style={thumb} key={url}>
+                <div style={thumbInner}>
+                    <img
+                        src={`http://localhost:8000/uploads/${url}`}
+                        style={img}
+                    />
+                </div>
+            </div>)
+        });
+    }
+
 
     return (
         <>
@@ -128,9 +178,15 @@ export const UploadPhotos = ({ formData, setForm, navigation }) => {
                     <input {...getInputProps()} />
                     <p className="p_photos">Upload 5 photos for your place</p>
                 </div>
-                <aside style={thumbsContainer} className="photos_uploaded">
-                    {thumbs}
-                </aside>
+                {
+                    uploadedPhotos ?
+                        <aside style={thumbsContainer} className="photos_uploaded">
+                            {thumbs}
+                        </aside> :
+                        <aside style={thumbsContainer} className="photos_uploaded">
+                            {oldPhotos}
+                        </aside>
+                }
                 <button onClick={handleSubmit} className="btn btn_start">Submit Now</button>
             </section>
         </>

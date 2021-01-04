@@ -17,7 +17,7 @@ const SignUpModal = (props) => {
         axios.post(`http://localhost:8000/api/v1/auth/register`, {firstName, lastName, email, password}).then((res) => {
             console.log('user signed up');
             console.log(res.data);
-            login(res.data.token);
+            login(res.data.token, res.data.user);
             props.onHide();
         }).catch((err) => {
             console.log('error');

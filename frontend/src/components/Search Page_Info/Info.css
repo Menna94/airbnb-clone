@@ -14,7 +14,7 @@
     margin-bottom: 20px;
 }
 
-.searchPage .searchPage__btn {
+.searchPage__btn {
     cursor: pointer !important;
     text-align: center !important;
     border: 1px solid rgb(176, 176, 176) !important;
@@ -26,11 +26,11 @@
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
     position: relative !important;
     padding: 8px 16px !important;
-    font-size: 12px !important;
+    font-size: 15px !important;
     line-height: 16px !important;
 }
 
-.searchPage .searchPage__btn:hover {
+.searchPage__btn:hover {
     border: 1px solid black !important;
 }
 
@@ -47,8 +47,8 @@
 }
 
 @media only screen and (max-width: 470px) {
-    .searchPage .searchPage__btn span {
-        font-size: 10px;
+    .searchPage__btn span {
+        font-size: 14px;
     }
 }
 

@@ -34,6 +34,7 @@ export const Location = ({ formData, setForm, navigation }) => {
                                     className="price"
                                     id="country"
                                     aria-describedby="country"
+                                    placeholder="country"
                                     name="country"
                                     value={country}
                                     onChange={setForm}
