@@ -5,7 +5,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 export const Address = ({ formData, setForm, navigation }) => {
     const { address } = formData
     const [addressErr, setaddressErr] = useState({})
-
+    console.log("addddresss", address)
     const onSubmit = (e) => {
         e.preventDefault()
         const isValid = formValidation()
@@ -35,7 +35,7 @@ export const Address = ({ formData, setForm, navigation }) => {
 
     return (
         <>
-            <ProgressBar now={12.5} />
+            <ProgressBar now={25} />
             <div className="container">
                 <div className="row description">
                     <div className="col-6 ">
@@ -55,9 +55,8 @@ export const Address = ({ formData, setForm, navigation }) => {
                                 />
                             </div>
                             <div className="d-flex justify-content-between">
-                                <button className="btn btn_start" onClick={() => navigation.next()}>
-                                    continue
-                                </button>
+                                <p className="myLink" onClick={() => navigation.previous()}><b><a target="_blank" className="back_a">Back</a></b></p>
+                                <button className="btn btn_start" onClick={() => navigation.next()}>next</button>
                             </div>
                         </form>
                     </div>

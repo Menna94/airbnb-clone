@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react'
 import { Modal, Form, Alert } from 'react-bootstrap'
 import axios from 'axios';
 import { AppContext } from '../../contexts/AppContext';
+import {toast} from 'react-toastify';
 
 const SignUpModal = (props) => {
     const [firstName, setFirstName] = useState('mostafa');
@@ -18,6 +19,7 @@ const SignUpModal = (props) => {
             console.log('user signed up');
             console.log(res.data);
             login(res.data.token, res.data.user);
+            toast('You have Signed up!', {type:'success'})
             props.onHide();
         }).catch((err) => {
             console.log('error');

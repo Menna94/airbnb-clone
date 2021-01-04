@@ -17,6 +17,7 @@ class Places extends Component {
             const search = this.props.location.search.slice(1);
             searchParams = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
         } catch (ex) {
+            console.log("error with parsing search params")
             this.props.history.push('/')
         }
         axios.post(`http://localhost:8000/api/v1/places`, searchParams).then((res) => {
@@ -25,6 +26,8 @@ class Places extends Component {
                 loading: false
             })
         }).catch((err) => {
+            console.log("error with fetching places")
+            console.log(searchParams)
             this.props.history.push('/')
         })
     }

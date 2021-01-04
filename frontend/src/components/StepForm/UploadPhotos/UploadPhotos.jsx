@@ -1,11 +1,11 @@
-
 import './UploadPhotos.css';
 import React, { useEffect, useState, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { AppContext } from '../../../contexts/AppContext';
-
+import {useHistory} from 'react-router-dom';
+import {toast} from 'react-toastify'; 
 
 const thumbsContainer = {
     display: 'flex',
@@ -39,7 +39,7 @@ const img = {
 };
 
 export const UploadPhotos = ({ formData, setForm, navigation, edit, data }) => {
-
+    const history = useHistory()
 
     console.log(formData, edit, data);
     const [files, setFiles] = useState([]);
@@ -125,8 +125,12 @@ export const UploadPhotos = ({ formData, setForm, navigation, edit, data }) => {
                 }
             }).then((res) => {
                 console.log(res);
+                history.push("/dashboard")
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err.response);
+                toast('Something Went wrong!', {
+                    type:'error'
+                })
             })
         } else {
 
@@ -135,9 +139,12 @@ export const UploadPhotos = ({ formData, setForm, navigation, edit, data }) => {
                     authorization: `Bearer ${token}`
                 }
             }).then((res) => {
-                console.log(res);
+                history.push("/dashboard")
             }).catch((err) => {
-                console.log(err.response.data);
+                console.log(err.response);
+                toast('Something Went wrong!', {
+                    type:'error'
+                })
             })
         }
     }

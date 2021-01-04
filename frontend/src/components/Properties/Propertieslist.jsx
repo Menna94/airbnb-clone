@@ -43,6 +43,7 @@ export default function Propertieslist(props) {
                     <thead>
                         <tr>
                             <th scope="col">Photo</th>
+                            <th scope="col">Approved</th>
                             <th scope="col">Bedrooms</th>
                             <th scope="col">Beds</th>
                             <th scope="col">Baths</th>

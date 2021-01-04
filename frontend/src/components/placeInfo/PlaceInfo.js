@@ -19,15 +19,19 @@ const PlacesInfo = ({ match, location }) => {
             setPlace(res.data.data);
         }).catch((err) => {
             console.log('error');
-            console.log(err.response.data);
+            console.log(err.response);
         })
     }, [match]);
 
     console.log(116, user, place);
     let searchParams;
+    let numOfDays;
     try {
         const search = location.search.slice(1);
         searchParams = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+        const ms = new Date(searchParams.endDate).getTime() - new Date(searchParams.startDate).getTime();
+        numOfDays = ms / (24 * 60 * 60 * 1000);
+        console.log("number of daaaaaaaaaaays", numOfDays);
     } catch (ex) {
         console.log(ex);
         console.log('heeelp');
@@ -55,33 +59,38 @@ const PlacesInfo = ({ match, location }) => {
     const pics = `https://a0.muscache.com/im/pictures/2f4f7d26-ac4d-417e-ba29-3fbc6ed5a01f.jpg?im_w=720`
     return (
         <>
-            {/* <Header /> */}
             <Container>
                 <div id='place_info'>
-                    <h1 className='headLine mt-3'>{place.description}</h1>
-                    <span>
-                        <i className={place.star} id='star'></i>
-                    &nbsp;
-                    4.98
-                </span>
-                &nbsp;  . &nbsp;
-                <span className='address'>{place.add}</span>
+                    <h1 className='headLine mt-3 h1'>{place.title}</h1>
+                    <p className="p_address">{place.address}</p>
                 </div>
+                <Row>
+                    <Col sm={6}>
+                        <img src={place.images && `${process.env.REACT_APP_BACKEND_URL}/uploads/${place.images[0]}`} className="big-image" alt='pics of houses' />
+                    </Col>
+                    <Col sm={6}>
+                        <Row>
+                            <Col sm={6}><img className="mini-image" src={place.images && `${process.env.REACT_APP_BACKEND_URL}/uploads/${place.images[1]}`} alt='pics of houses' /></Col>
+                            <Col sm={6}><img className="mini-image" src={place.images && `${process.env.REACT_APP_BACKEND_URL}/uploads/${place.images[2]}`} alt='pics of houses' /></Col>
+                        </Row>
+                        <Row>
+                            <Col sm={6}><img className="mini-image" src={place.images && `${process.env.REACT_APP_BACKEND_URL}/uploads/${place.images[3]}`} alt='pics of houses' /></Col>
+                            <Col sm={6}><img className="mini-image" src={place.images && `${process.env.REACT_APP_BACKEND_URL}/uploads/${place.images[4]}`} alt='pics of houses' /></Col>
+                        </Row>
+                    </Col>
+                </Row>
                 <div className='img mt-3'>
-                    <img src={pics} alt='pics of houses' />
+
                 </div>
                 <Row>
                     <Col sm={10}>
                         <h3 className='house_owner mt-3'>
-                            Entire flat hosted by Ahmed
-                    </h3>
+                            Entire flat hosted by {place.owner && place.owner.firstName}
+                        </h3>
                         <span>{place.guests} guests . </span>
                         <span>{place.propertyType} . </span>
-                        <span>{place.bedrooms} bed . </span>
-                        <span>{place.bathrooms} bathroom</span>
-                    </Col>
-                    <Col sm={2}>
-                        <img className='profile_pic mt-3' src='https://a0.muscache.com/im/pictures/user/f0aa2fe5-dc0a-46d3-b8d0-986738afe441.jpg?im_w=240' />
+                        <span>{place.bedrooms} beds . </span>
+                        <span>{place.bathrooms} bathrooms .</span>
                     </Col>
                     <Col sm={12}><hr /></Col>
                 </Row>
@@ -145,40 +154,22 @@ const PlacesInfo = ({ match, location }) => {
                     </Col>
                     <Col md={5} sm={10}>
                         <div id='box' className='ml-auto mt-3'>
-                            <span className='sp1'>
-                                {place.price}
-                            </span>
-                            <span className='sp3'>
-                                <i className="fas fa-star"></i>
-                                <span className='sp2 ml-1'>4.96 (57)</span>
-                            </span>
-                            <div className='small_box text-center'>
-                                <div className='inner_div'>
-                                    <div className='check_in'>
-                                        <span className='sp'>
-                                            Check-in
-                                   <input type='date' />
-                                        </span>
-                                    </div>
-                                    <div className='check_in check_out'>
-                                        <span className='sp'>
-                                            Check-out
-                                    <input type='date' />
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className='button text-center mt-3'>
+                            <p className="mb-1">Price Per day: <span className='sp1'>{place.price}$</span></p>
+                            <p className="mb-1">days:  <span className='sp1'>{numOfDays}</span></p>
+                            <div className="pay-divider my-2"></div> 
+                            total: <span className='sp1'>{Math.round(numOfDays * place.price)}$</span>
 
-                                    {
-                                        place.owner && user._id === place.owner._id ?
-                                            'You own this place' : <CheckOutButton
-                                                stripeKey={process.env.REACT_APP_STRIPE_PUBLISH_KEY}
-                                                token={rentPlace}
-                                                name="Buy React"
-                                                amount={200}
-                                            />
-                                    }
-                                </div>
+                            <div className='button text-center mt-2'>
+                                {
+                                    place.owner && user._id === place.owner._id ?
+                                        'You own this place' : <CheckOutButton
+                                            stripeKey={process.env.REACT_APP_STRIPE_PUBLISH_KEY}
+                                            token={rentPlace}
+                                            name={`rent ${place.title}`}
+                                            amount={Math.round(numOfDays * place.price) * 100}
+                                            locale="en"
+                                        />
+                                }
                             </div>
                         </div>
                     </Col>
@@ -186,18 +177,10 @@ const PlacesInfo = ({ match, location }) => {
                 <hr />
                 <div id='description' className='mt-2'>
                     <span>
-                        City Skyline Views: Charming, Cozy 1 bedroom 1 bathroom apartment in Agouza.
-                        Close to Tahrir Square, Egyptian Museum, Zamalek neighborhood and walking distance to British Council.
-                        64m2 Terrace with beautiful view over the Nile and Cairo Tower. It is fully equipped with all you might need,
-                        freshly renovated.
-                </span>
+                        {place.description}
+                    </span>
                     <br />
                     <br />
-                    <span className='st_header'>Guest access</span><br />
-                    <span>The Entire place</span>
-                    <div style={{ marginTop: `32px` }}>
-                        <Link to='#' className='link'>contact host</Link>
-                    </div>
                 </div>
                 <hr />
                 <div style={{ paddingBottom: `24px` }} id='bedroom'>
@@ -209,83 +192,20 @@ const PlacesInfo = ({ match, location }) => {
                     </div>
                 </div>
                 <hr />
-                <h2 className='amenities'>Amenities</h2>
-                <Row>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                    <Col sm={3} xs={6}>
-                        <i className="drawing_pic fas fa-snowflake"></i>
-                        <span className='options_of_house'>Air conditioning</span>
-                    </Col>
-                </Row>
+                <h2 className='amenities mt-4 mb-3'>Amenities</h2>
+                <ul className="amenities_ul mb-4">
+                    <li className={place.aminities && place.aminities.wifi ? null : 'hide'}><i class="fas fa-wifi"></i>Wifi</li>
+                    <li className={place.aminities && place.aminities.tv ? null : 'hide'}><i class="fas fa-tv"></i>Tv</li>
+                    <li className={place.aminities && place.aminities.fireplace ? null : 'hide'}><i class="fas fa-fire-alt"></i>Fire place</li>
+                    <li className={place.aminities && place.aminities.shampoo ? null : 'hide'}><i class="fas fa-pump-soap"></i>Shampoo</li>
+                    <li className={place.aminities && place.aminities.ac ? null : 'hide'}><i class="fas fa-fan"></i>Air Conditioning</li>
+                    <li className={place.aminities && place.aminities.heat ? null : 'hide'}><i class="fas fa-fire-alt"></i>Heater</li>
+                    <li className={place.aminities && place.aminities.iron ? null : 'hide'}><i class="fas fa-tshirt"></i>Iron</li>
+                </ul>
                 <hr />
                 <div style={{ paddingBottom: `24px` }} id='location'>
                     <h2>Location</h2>
-                    <div style={{ marginBottom: `24px` }} className='mt-2'>Al Agouzah, Giza Governorate, Egypt</div>
+                    <div style={{ marginBottom: `24px` }} className='mt-2'>{place.address}</div>
                     {/* <MapContainer /> */}
                 </div>
             </Container>

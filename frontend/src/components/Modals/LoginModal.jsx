@@ -3,6 +3,7 @@ import './Modals.scss';
 import { Modal, Form, Alert } from 'react-bootstrap'
 import axios from 'axios';
 import { AppContext } from '../../contexts/AppContext';
+import {toast} from 'react-toastify';
 
 const LoginModal = (props) => {
     const [email, setEmail] = useState('mustafa@gmail.com');
@@ -16,6 +17,7 @@ const LoginModal = (props) => {
             console.log('place loaded');
             console.log(res.data);
             login(res.data.token, res.data.user);
+            toast('You have logged in!', {type:'success'})
             props.onHide();
         }).catch((err) => {
             console.log('error');

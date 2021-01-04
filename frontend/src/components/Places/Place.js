@@ -12,17 +12,13 @@ export default class Place extends Component {
                     <Link to={`/search/${this.props.place._id}${this.props.searchQuery}`}>
                         <div className="img-wrapper" >
                             <img src={cityImgURL} alt='Place Picture' className='pic' />
-                            <span className="heart"><i className={'far fa-heart'}></i></span>
                         </div>
-                        <span className='rate'>
-                            <i className={'stars fas fa-star'}></i>
-                            <span className='ml-2'>4.93</span>
-                        </span>
-                        <ol className='list_info'>
-                            <li>{this.props.place.description}</li>
-                            <li>{this.props.place.address}</li>
+                        <ol className='list_info' style={{margin:'0'}}>
+                            <li className="h6 mt-2" >{this.props.place.title}</li>
+                            <li className="my-2" >{this.props.place.address}</li>
+                            <li><span className='prices mt-2'>{this.props.place.price}$</span>/day</li>
                         </ol>
-                        <span className='prices'>{this.props.place.price}$/day</span>
+                        
                     </Link>
                 </Col>
             </>

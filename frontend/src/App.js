@@ -8,6 +8,7 @@ import { AppProdivder } from './contexts/AppContext'
 import AppWrapper from './AppWrapper.js'
 import DashboardScreen from './screens/DashboardScreen'
 import AdminDashboardScreen from './screens/AdminScreen'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (

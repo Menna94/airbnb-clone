@@ -9,6 +9,7 @@ import SignUpModal from '../Modals/SignUpModal'
 import { AppContext } from '../../contexts/AppContext'
 import './Header.scss'
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Header = (props) => {
     const { logged, logout, user } = useContext(AppContext)
@@ -24,11 +25,16 @@ const Header = (props) => {
 
     const handleLogOut = () => {
         logout()
+        toast('You have Logged out!', {
+            type: 'error'
+        })
+        console.log("loooooooooooooog out");
         history.push('/')
     }
 
     return (
         <>
+            <ToastContainer autoClose={2000}/>
             <header className={props.headerInner ? 'h-header innerHeader' : 'h-header'}>
                 <div className="container">
                     <div className="row">
@@ -81,7 +87,7 @@ const Header = (props) => {
                                                 <>
                                                     <Link to="/host">Host your Home</Link>
                                                     <Link to="/dashboard">Dashboard</Link>
-                                                    {user.isAdmin ? <Link to="/admin">Admin Dashboard</Link>: null}
+                                                    {user.isAdmin ? <Link to="/admin">Admin Dashboard</Link> : null}
                                                     <Button
                                                         variant="link"
                                                         onClick={handleLogOut}

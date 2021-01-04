@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import './House.css'
 import { AppContext } from '../../contexts/AppContext';
 import axios from 'axios';
-
+import {toast} from 'react-toastify';
 
 const House = (props) => {
     const {token} = useContext(AppContext);
@@ -15,7 +15,10 @@ const House = (props) => {
                 authorization: `Bearer ${token}`
             }
         }).then(()=>{
-            setShow('none')
+            setShow('none');
+            toast('Approved placae!', {type:'success'})
+        }).catch(()=>{
+            toast('Something went wrong!', {type:'error'})
         })
     }
     const handleReject = () => {
@@ -25,14 +28,17 @@ const House = (props) => {
             }
         }).then(()=>{
             setShow('none')
+            toast('Rejected place!', {type:'error'})
+        }).catch(()=>{
+            toast('Something went wrong!', {type:'error'})
         })
     }
     return (
         <tr style={{display:show}}>
             <td className="align-middle"><img src={`${process.env.REACT_APP_BACKEND_URL}/uploads/${props.place.images[0]}`} alt='pics' /></td>
-            <td className="align-middle">{props.place.bedroom}</td>
+            <td className="align-middle">{props.place.bedrooms}</td>
             <td className="align-middle">{props.place.beds}</td>
-            <td className="align-middle">{props.place.baths}</td>
+            <td className="align-middle">{props.place.bathrooms}</td>
             <td className="align-middle">
                 <Button className='btn btn-success btn-sm' onClick={handleApprove}>Approve Request</Button>
             </td>

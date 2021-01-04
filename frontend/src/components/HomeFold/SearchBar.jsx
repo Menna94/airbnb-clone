@@ -3,27 +3,28 @@ import DatePicker from 'react-datepicker'
 import './SearchBar.scss'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withRouter } from 'react-router';
-import {useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const SearchBar = (props) => {
     const history = useHistory();
 
     const [location, setLocation] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date(Date.now() + 24 * 3600 * 1000));
     const [guests, setGuests] = useState('1');
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         console.log(location, startDate, endDate, guests);
         console.log(props);
-        if(!location || !startDate || !endDate ||!guests){
+        if (!location || !startDate || !endDate || !guests) {
             alert('please enter location and dates and guests');
             return;
         }
-        history.push(`/search?city=${location}&guests=${guests}&startDate=${startDate}&endDate=${endDate}`, {city: location, startDate, endDate, guests});
+        history.push(`/search?city=${location}&guests=${guests}&startDate=${startDate}&endDate=${endDate}`, { city: location, startDate, endDate, guests });
     }
 
+    console.log(startDate, endDate);
     return (
         <>
             <form onSubmit={handleSearchSubmit}>
@@ -44,16 +45,17 @@ const SearchBar = (props) => {
                         <DatePicker
                             id="startDate"
                             selected={startDate}
-                            onChange={(date) => {console.log("staaaaaaaart", date);setStartDate(date)}}
+                            onChange={(date) => {
+                                setStartDate(date);
+                                if (new Date(date).getTime() >= new Date(endDate).getTime()){
+                                    setEndDate(new Date(date).getTime() + 24 * 3600 * 1000);
+                                }
+                            }}
                             selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={new Date()}
+                            minDate={Date.now()}
                             placeholderText="Add dates"
                             autoComplete="off"
                             isClearable
-                            
-
                         />
                     </div>
                     <div className="searchBar__item searchBar__item--checkOut">
@@ -63,9 +65,7 @@ const SearchBar = (props) => {
                             selected={endDate}
                             onChange={(date) => setEndDate(date)}
                             selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={startDate || new Date()}
+                            minDate={new Date(startDate).getTime() + 24 * 3600 * 1000}
                             placeholderText="Add dates"
                             autoComplete="off"
                             isClearable

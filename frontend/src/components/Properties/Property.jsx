@@ -19,6 +19,7 @@ export default function Property(props) {
         <React.Fragment>
             <tr>
                 <td className="align-middle" style={{ width: '100px' }}><img src={`http://localhost:8000/uploads/${props.data.images[0]}`} style={{ height: '100px' }} />{props.data.type}</td>
+                <td className="align-middle">{props.data.approved? 'yes':'no'}</td>
                 <td className="align-middle">{props.data.bedrooms}</td>
                 <td className="align-middle">{props.data.beds}</td>
                 <td className="align-middle">{props.data.bathrooms}</td>

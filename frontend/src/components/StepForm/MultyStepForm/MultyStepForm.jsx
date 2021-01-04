@@ -10,36 +10,9 @@ import { Location } from './../location/Location';
 import { Guests } from './../Guests/Guests';
 import { Amenities } from '../Amenities/Amenities';
 
-let defaultData = {
-    type: 'apartment',
-    address: '',
-    description: '',
-    //price page
-    price: '',
-    title: '',
-    //location page
-    country: '',
-    city: '',
-    street: '',
-    //gusts page
-    bedrooms: '3',
-    beds: '6',
-    bathrooms: '9',
-    guests: '12',
-    //amenities page
-    //uploadphotos page
-    wifi: true,
-    tv: true,
-    ac: false,
-    shampoo: false,
-    iron: false,
-    fireplace: false,
-    heat: false
-
-}
 const steps = [
-    { id: 'address' },
     { id: 'type' },
+    { id: 'address' },
     { id: 'guests' },
     { id: 'location' },
     { id: 'amenities' },
@@ -49,9 +22,38 @@ const steps = [
 ]
 
 export const MultyStepForm = (props) => {
+    let defaultData = {
+        type: 'apartment',
+        address: '',
+        description: '',
+        //price page
+        price: '',
+        title: '',
+        //location page
+        country: '',
+        city: '',
+        street: '',
+        //gusts page
+        bedrooms: '1',
+        beds: '1',
+        bathrooms: '1',
+        guests: '1',
+        //amenities page
+        //uploadphotos page
+        wifi: true,
+        tv: true,
+        ac: false,
+        shampoo: false,
+        iron: false,
+        fireplace: false,
+        heat: false
+
+    }
     const { data, edit } = props;
+    console.log(data, edit);
     useEffect(() => {
         if (edit) {
+            console.log("yes edit")
             defaultData.address = data.address;
             defaultData.type = data.propertyType;
             defaultData.description = data.description;
@@ -62,13 +64,12 @@ export const MultyStepForm = (props) => {
             defaultData.country = data.location.country;
             defaultData.city = data.location.city;
             defaultData.street = data.location.street;
-            //gusts page
+            //guests page
             defaultData.bedrooms = data.bedrooms;
             defaultData.beds = data.beds;
             defaultData.bathrooms = data.bathrooms;
             defaultData.guests = data.guests;
             //amenities page
-            //uploadphotos page
             defaultData.wifi = data.aminities.wifi;
             defaultData.tv = data.aminities.tv;
             defaultData.ac = data.aminities.ac;
@@ -77,7 +78,8 @@ export const MultyStepForm = (props) => {
             defaultData.fireplace = data.aminities.fireplace;
             defaultData.heat = data.aminities.heat;
         }
-    });
+    })
+    console.log(defaultData);
     const [formData, setForm] = useForm(defaultData);
     const { step, navigation } = useStep({
         steps,
@@ -91,6 +93,7 @@ export const MultyStepForm = (props) => {
 
     switch (step.id) {
         case "address":
+            console.log(childProps)
             return <Address {...childProps} />
         case "type":
             return <PropertyType {...childProps} />
