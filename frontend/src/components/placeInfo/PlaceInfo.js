@@ -10,7 +10,7 @@ import { AppContext } from '../../contexts/AppContext';
 import './PlacesInfo.css'
 
 const PlacesInfo = ({ match, location }) => {
-    const { token, user } = useContext(AppContext);
+    const { token, user, logged } = useContext(AppContext);
 
     const [place, setPlace] = useState({});
     useEffect(() => {
@@ -156,11 +156,12 @@ const PlacesInfo = ({ match, location }) => {
                         <div id='box' className='ml-auto mt-3'>
                             <p className="mb-1">Price Per day: <span className='sp1'>{place.price}$</span></p>
                             <p className="mb-1">days:  <span className='sp1'>{numOfDays}</span></p>
-                            <div className="pay-divider my-2"></div> 
+                            <div className="pay-divider my-2"></div>
                             total: <span className='sp1'>{Math.round(numOfDays * place.price)}$</span>
 
                             <div className='button text-center mt-2'>
-                                {
+                                {logged ?
+
                                     place.owner && user._id === place.owner._id ?
                                         'You own this place' : <CheckOutButton
                                             stripeKey={process.env.REACT_APP_STRIPE_PUBLISH_KEY}
@@ -169,7 +170,7 @@ const PlacesInfo = ({ match, location }) => {
                                             amount={Math.round(numOfDays * place.price) * 100}
                                             locale="en"
                                         />
-                                }
+                                    : 'Please Login To Proceed'}
                             </div>
                         </div>
                     </Col>

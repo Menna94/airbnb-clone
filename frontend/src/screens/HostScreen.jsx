@@ -3,17 +3,20 @@ import { MultyStepForm } from '../components/StepForm/MultyStepForm/MultyStepFor
 import Header from '../components/Header/Header'
 
 const HostScreen = (props) => {
-    const [edit, setEdit] = useState(false);
-    useEffect(() => {
-        if (props.location.state?.edit === true) {
-            console.log(props.location.state?.data);
-            setEdit(true);
-        }
-    }, [])
+    console.log(props.location.state?.edit, props.location.state?.data)
+    // const [edit, setEdit] = useState(false);
+    // useEffect(() => {
+    //     if (props.location.state?.edit === true) {
+    //         console.log(props.location.state?.data);
+    //         setEdit(true);
+    //     }
+    // }, [])
+    const  edit = props?.location?.state?.edit;
+    const data = props?.location?.state?.data;
     return (
         <>
             <Header headerInner={true}/>
-            <MultyStepForm edit={edit} data={props.location.state?.data} />
+            <MultyStepForm edit={edit} data={data} />
         </>
     )
 }

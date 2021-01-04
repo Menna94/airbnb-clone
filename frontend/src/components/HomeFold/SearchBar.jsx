@@ -4,7 +4,7 @@ import './SearchBar.scss'
 import 'react-datepicker/dist/react-datepicker.css'
 import { withRouter } from 'react-router';
 import { useHistory } from 'react-router-dom';
-
+import {toast} from 'react-toastify';
 const SearchBar = (props) => {
     const history = useHistory();
 
@@ -18,7 +18,10 @@ const SearchBar = (props) => {
         console.log(location, startDate, endDate, guests);
         console.log(props);
         if (!location || !startDate || !endDate || !guests) {
-            alert('please enter location and dates and guests');
+            toast('please enter location and dates and guests', {
+                type: 'error',
+                autoClose: 5000
+            });
             return;
         }
         history.push(`/search?city=${location}&guests=${guests}&startDate=${startDate}&endDate=${endDate}`, { city: location, startDate, endDate, guests });

@@ -22,6 +22,7 @@ const steps = [
 ]
 
 export const MultyStepForm = (props) => {
+    console.log(props);
     let defaultData = {
         type: 'apartment',
         address: '',
@@ -40,8 +41,8 @@ export const MultyStepForm = (props) => {
         guests: '1',
         //amenities page
         //uploadphotos page
-        wifi: true,
-        tv: true,
+        wifi: false,
+        tv: false,
         ac: false,
         shampoo: false,
         iron: false,
@@ -51,34 +52,32 @@ export const MultyStepForm = (props) => {
     }
     const { data, edit } = props;
     console.log(data, edit);
-    useEffect(() => {
-        if (edit) {
-            console.log("yes edit")
-            defaultData.address = data.address;
-            defaultData.type = data.propertyType;
-            defaultData.description = data.description;
-            //price page
-            defaultData.price = data.price;
-            defaultData.title = data.title;
-            //location page
-            defaultData.country = data.location.country;
-            defaultData.city = data.location.city;
-            defaultData.street = data.location.street;
-            //guests page
-            defaultData.bedrooms = data.bedrooms;
-            defaultData.beds = data.beds;
-            defaultData.bathrooms = data.bathrooms;
-            defaultData.guests = data.guests;
-            //amenities page
-            defaultData.wifi = data.aminities.wifi;
-            defaultData.tv = data.aminities.tv;
-            defaultData.ac = data.aminities.ac;
-            defaultData.shampoo = data.aminities.shampoo;
-            defaultData.iron = data.aminities.iron;
-            defaultData.fireplace = data.aminities.fireplace;
-            defaultData.heat = data.aminities.heat;
-        }
-    })
+    if (edit) {
+        console.log("yes edit")
+        defaultData.address = data.address;
+        defaultData.type = data.propertyType;
+        defaultData.description = data.description;
+        //price page
+        defaultData.price = data.price;
+        defaultData.title = data.title;
+        //location page
+        defaultData.country = data.location.country;
+        defaultData.city = data.location.city;
+        defaultData.street = data.location.street;
+        //guests page
+        defaultData.bedrooms = data.bedrooms;
+        defaultData.beds = data.beds;
+        defaultData.bathrooms = data.bathrooms;
+        defaultData.guests = data.guests;
+        //amenities page
+        defaultData.wifi = data.aminities.wifi;
+        defaultData.tv = data.aminities.tv;
+        defaultData.ac = data.aminities.ac;
+        defaultData.shampoo = data.aminities.shampoo;
+        defaultData.iron = data.aminities.iron;
+        defaultData.fireplace = data.aminities.fireplace;
+        defaultData.heat = data.aminities.heat;
+    }
     console.log(defaultData);
     const [formData, setForm] = useForm(defaultData);
     const { step, navigation } = useStep({
