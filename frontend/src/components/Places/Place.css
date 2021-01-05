@@ -4,6 +4,7 @@
     width: 100%;
     border-radius: 5%;
     box-shadow: lightgray;
+    height: 150px;
 }
 
 #Places .rate {
