@@ -3,7 +3,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 export const Guests = ({ formData, setForm, navigation }) => {
     const { bedrooms, beds, bathrooms, guests } = formData
-
+    const [error, setError] = useState({})
     const onSubmit = (e) => {
         e.preventDefault()
         const isValid = formValidation()
@@ -13,7 +13,44 @@ export const Guests = ({ formData, setForm, navigation }) => {
         }
     }
     const formValidation = () => {
-        let isValid = true
+        let isValid = true;
+        const error = {};
+        if(bedrooms < 1){
+            error.minBedrooms = 'Minimum bedrooms is 1.'
+            isValid = false;
+        }
+        if(bedrooms > 100){
+            error.maxBedrooms = 'Maximum bedrooms is 100.'
+            isValid = false;
+        }
+
+        if(bathrooms < 1){
+            error.minBathrooms = 'Minimum bathrooms is 1.'
+            isValid = false;
+        }
+        if(bathrooms > 100){
+            error.maxBathrooms = 'Maximum bathrooms is 100.'
+            isValid = false;
+        }
+
+        if(beds < 1){
+            error.minBeds = 'Minimum beds is 1.'
+            isValid = false;
+        }
+        if(beds > 100){
+            error.maxBeds = 'Maximum beds is 100.'
+            isValid = false;
+        }
+
+        if(guests < 1){
+            error.minGuests = 'Minimum guests is 1.'
+            isValid = false;
+        }
+        if(guests > 100){
+            error.maxGuests = 'Maximum guests is 100.'
+            isValid = false;
+        }
+        setError(error);
         return isValid
     }
 
@@ -28,9 +65,9 @@ export const Guests = ({ formData, setForm, navigation }) => {
                             Check that you have enough beds to accommodate all your guests
                             comfortably.
                         </h6>
-                        <form>
+                        <form onSubmit={onSubmit}>
                             <div className="form-group">
-                                <label>How many guests can guests use?</label>
+                                <label>Guests</label>
                                 <input
                                     type="number"
                                     className="price"
@@ -43,7 +80,7 @@ export const Guests = ({ formData, setForm, navigation }) => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>How many beds can guests use?</label>
+                                <label>Beds</label>
                                 <input
                                     type="number"
                                     className="price"
@@ -56,7 +93,7 @@ export const Guests = ({ formData, setForm, navigation }) => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>How many bedrooms can guests use?</label>
+                                <label>Bedrooms</label>
                                 <input
                                     type="number"
                                     className="price"
@@ -69,7 +106,7 @@ export const Guests = ({ formData, setForm, navigation }) => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>How many bathrooms can guests use?</label>
+                                <label>Bathrooms</label>
                                 <input
                                     type="number"
                                     className="price"
@@ -81,6 +118,10 @@ export const Guests = ({ formData, setForm, navigation }) => {
                                     onChange={setForm}
                                 />
                             </div>
+                            {Object.keys(error).map((key, i)=>{
+                                return <div key={i}  style={{color:"red"}}>{error[key]}</div>
+                            })}
+                            <br />
                             <div className="d-flex justify-content-between">
                                 <p className="myLink" onClick={() => navigation.previous()}>
                                     <b>
@@ -89,7 +130,7 @@ export const Guests = ({ formData, setForm, navigation }) => {
                                         </a>
                                     </b>
                                 </p>
-                                <button className="btn btn_start" onClick={() => navigation.next()}>
+                                <button className="btn btn_start" type="submit">
                                     next
                                 </button>
                             </div>

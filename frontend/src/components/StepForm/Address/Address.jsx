@@ -41,7 +41,7 @@ export const Address = ({ formData, setForm, navigation }) => {
                     <div className="col-6 ">
                         <h4 className="price_p">Let’s get started listing your space.</h4>
                         <h6>Where’s your place located?</h6>
-                        <form>
+                        <form  onSubmit = {onSubmit}>
                             <div className="form-group">
                                 <input
                                     type="text"
@@ -54,9 +54,13 @@ export const Address = ({ formData, setForm, navigation }) => {
                                     onChange={setForm}
                                 />
                             </div>
+                            {Object.keys(addressErr).map((key, i)=>{
+                                return <div key={i}  style={{color:"red"}}>{addressErr[key]}</div>
+                            })}
+                            <br/>
                             <div className="d-flex justify-content-between">
                                 <p className="myLink" onClick={() => navigation.previous()}><b><a target="_blank" className="back_a">Back</a></b></p>
-                                <button className="btn btn_start" onClick={() => navigation.next()}>next</button>
+                                <button className="btn btn_start" type="submit">next</button>
                             </div>
                         </form>
                     </div>

@@ -19,19 +19,19 @@ const placeSchema = mongoose.Schema({
         type: String,
         required: [true, 'title is required'],
         minlength: [5, 'title min length is 5 characters'],
-        maxwidth: [100, 'title max length is 100 characters']
+        maxlength: [100, 'title max length is 100 characters']
     },
     description: {
         type: String,
         required: [true, 'please add description'],
         minlength: [5, 'description min length is 5 characters'],
-        maxwidth: [500, 'description max length is 500 characters']
+        maxlength: [500, 'description max length is 500 characters']
     },
     address: {
         type: String,
         required: [true, 'please add address'],
         minlength: [5, 'address min length is 5 characters'],
-        maxwidth: [100, 'address max length is 100 characters']
+        maxlength: [100, 'address max length is 100 characters']
     },
     price: {
         type: Number,

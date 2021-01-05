@@ -9,6 +9,7 @@ export default function Propertieslist(props) {
     const [properties, setProperities] = useState([]);
     const { token } = useContext(AppContext);
 
+
     useEffect(() => {
         console.log(17, token);
         if (token) {

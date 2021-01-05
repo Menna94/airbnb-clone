@@ -1,19 +1,36 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Price.css'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
 export const Price = ({ formData, setForm, navigation }) => {
-    const { price, title } = formData
+    const { price, title } = formData;
+    const [error, setError] = useState({})
     const onSubmit = (e) => {
         e.preventDefault()
         const isValid = formValidation()
         if (isValid) {
             navigation.next()
-            console.log('valid')
         }
     }
     const formValidation = () => {
-        let isValid = true
+        let isValid = true;
+        if(price < 1){
+            error.minprice = 'Min price is 1$.'
+            isValid = false;
+        }
+        if (price > 1000000){
+            error.maxprice = 'Max price is 1000000$.'
+            isValid = false;
+        }
+        if(title.length < 5){
+            error.mintitle = 'title minimum length is 5.'
+            isValid = false;
+        }
+        if(title.length > 100){
+            error.mintitle = 'title maximum length is 100.'
+            isValid = false;
+        }
+        setError(error);
         return isValid
     }
 
@@ -29,7 +46,7 @@ export const Price = ({ formData, setForm, navigation }) => {
                             Set up Smart Pricing to automatically keep your nightly prices
                             competitive as demand in your area changes.
                         </p>
-                        <form>
+                        <form onSubmit={onSubmit}>
                             <div className="form-group">
                                 <label>price</label>
                                 <input
@@ -55,6 +72,10 @@ export const Price = ({ formData, setForm, navigation }) => {
                                     onChange={setForm}
                                 />
                             </div>
+                            {Object.keys(error).map((key, i)=>{
+                                return <div key={i}  style={{color:"red"}}>{error[key]}</div>
+                            })}
+                            <br />
                             <div className="d-flex justify-content-between">
                                 <p className="myLink" onClick={() => navigation.previous()}>
                                     <b>
@@ -63,7 +84,7 @@ export const Price = ({ formData, setForm, navigation }) => {
                                         </a>
                                     </b>
                                 </p>
-                                <button className="btn btn_start" onClick={() => navigation.next()}>
+                                <button className="btn btn_start" type="submit">
                                     next
                                 </button>
                             </div>
