@@ -5,10 +5,10 @@ import { AppContext } from '../../contexts/AppContext';
 import {toast} from 'react-toastify';
 
 const SignUpModal = (props) => {
-    const [firstName, setFirstName] = useState('mostafa');
-    const [lastName, setLastName] = useState('ramdan');
-    const [email, setEmail] = useState('mustafa1@gmail.com');
-    const [password, setPassword] = useState('11111111');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [wrongCredentials, setWrongCredentials] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Error Signing up');
     const {login} = useContext(AppContext);

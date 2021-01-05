@@ -6,8 +6,8 @@ import { AppContext } from '../../contexts/AppContext';
 import {toast} from 'react-toastify';
 
 const LoginModal = (props) => {
-    const [email, setEmail] = useState('mustafa@gmail.com');
-    const [password, setPassword] = useState('11111111');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [wrongCredentials, setWrongCredentials] = useState(false);
     const {login} = useContext(AppContext);
     function handleSubmit(e){
